@@ -60,15 +60,27 @@ the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, a
 #### Betty with F2
 Instead of leaving VIM then running " betty file_name.c ", you could press F2 instead in VIM and get betty's results. 
 #### Auto Indent with F3
-For this I'll let these pictures do the talking
+For this I'll let these pictures do the talking.
 
-Before pressing F3 
+Before pressing F3 :
 
 ![Before indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/09af4a1e-20c0-45ee-9287-6fc4fb1237c4)
 
-After pressing F3
+After pressing F3 :
 
 ![After indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/fceb67e6-a750-47f9-b2db-6de13c8110ef)
+
+#### Remove WhiteSpace with F4
+White space will be highlighted as Red.
+
+Before Pressing F4 : 
+
+![Red Whitespace](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/a1ce22ce-f8d8-4c41-b4eb-e5a5adb70e67)
+
+After pressing F4 : 
+
+![After whitespace](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/3f3aa40a-550e-47d5-aa58-004644a570f8)
+
 
 
 
