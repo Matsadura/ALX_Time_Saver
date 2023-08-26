@@ -1,0 +1,13 @@
+#!/bin/bash
+read -e -p "File name(s) : " file_name
+
+printf "What's your commit ? : "
+read commit_msg
+
+IFS=' ' read -r -a files <<< $file_name
+
+for files_name in ${files[@]}; do
+	git add $file_name
+done
+	git commit -m "$commit_msg"
+	git push
