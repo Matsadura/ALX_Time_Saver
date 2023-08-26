@@ -23,7 +23,8 @@ __IMPORTANT REMARQUE : Learn how to do these operations manually before you star
      * Automatically puts all your project files in a table with interactive names
 
 4. Header maker
-     * Extracts all the fuctions prototypes of a certain projects and appends them in a "main.h" file  
+     * Extracts all the fucntions prototypes of a certain project and appends them in a "main.h" file 
+ 
 ## Installation 
 
 Clone the repository : 
