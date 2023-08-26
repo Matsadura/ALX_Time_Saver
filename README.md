@@ -95,7 +95,7 @@ launch the script with ``python3 read_maker.py``, then enter the name of subdire
 If you click on a file it'll open it (in github of course).
 
 ### Header Maker
-This is need more work but it does the job for now, in order to take advantage of it you must download the page of the project by saving it as ``.html``, then run the script with ``python3 header_maker.py``, the output should be in ``main.h``.
+This needs more work but it does the job for now, in order to take advantage of it you must download the page of the project by saving it as ``.html``, then run the script with ``python3 header_maker.py``, the output should be in ``main.h``.
 __NOTE : The main.h file will be in the current working directory__
 
 Follow these steps : 
