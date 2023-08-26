@@ -32,6 +32,7 @@ vim -u "$vim_config_file" +PlugInstall +qall
 # Installing Python and modules for README & Header Maker
 sudo apt-get update
 yes | sudo apt-get install python3
+yes | sudo apt-get install python3-pip
 yes | pip install requests
 yes | pip install prompt_toolkit
 
