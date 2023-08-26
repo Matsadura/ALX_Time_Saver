@@ -4,17 +4,26 @@
 
 ALX Time Saver will help take some of the stress of these repetetive tasks and more.
 
+__IMPORTANT REMARQUE : Learn how to do these operations manually before you start using this, we're here to LEARN at Alx.__
+
 ## Features
 1. Custom aliases for :
-     * pushing
-     * compiling
-     * making a bash script
+     * Pushing
+     * Compiling
+     * Making a bash script
+
 2. Custom Vim Configuration :
      * Lines numbers on the left side 
      * Run betty from vim
      * Compile the current file opened in vim
      * Remove all trailing white space with a sigle button
-     * Automatically indent your code  
+     * Automatically indent your code
+ 
+3. Readme maker
+     * Automatically puts all your project files in a table with interactive names
+
+4. Header maker
+     * Extracts all the fuctions prototypes to of a certain projects and appends them in a "main.h" file  
 ## Installation 
 
 Clone the repository : 
