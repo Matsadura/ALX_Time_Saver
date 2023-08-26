@@ -1,22 +1,22 @@
 #!/bin/bash
 
 # Making a directory for the scripts in home directory
-mkdir ~/.scripts && cp gcc mk push ~/.scripts
+mkdir -p ~/.scripts
+cp gcc mk push ~/.scripts
 
 # Adding vim configuration
 cp -f vimrc ~/.vimrc
 
 
 # Appending aliases in Bashrc
-bashrc='
-#alias for scripts
+cat << EOF >> ~/.bashrc
+# Alias for scripts
 alias cl="clear"
 alias mkscript=". ~/.scripts/mk"
 alias cgcc=". ~/.scripts/gcc"
 alias push=". ~/.scripts/push"
-'
+EOF
 
-echo $bashrc >> ~/.bashrc
 
 # Installing TrailerTrash vim plugin
 vim_config_file=~/.vimrc
