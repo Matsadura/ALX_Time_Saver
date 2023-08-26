@@ -49,7 +49,7 @@ Run the ``cgcc`` command, select the test file if it exists, the code to compile
 ![cgcc](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/5025a37d-5674-4074-b220-09cd305eee7e)
 
 ### The "mkscript" command
-Run the ``mkscript``, type the name of your script, it'll automatically open it in bin with ``#!/bin/bash`` already written on top, do your thing and after exiting the file will already be given the executable permission.
+Run the ``mkscript``, type the name of your script, it'll automatically open it in vim with ``#!/bin/bash`` already written on top, do your thing and after exiting the file will already be given the executable permission.
 ### Vim Configs
 
 ![vim config](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/b438e9c2-2d0b-4e76-9a42-48f0bb11b40f)
