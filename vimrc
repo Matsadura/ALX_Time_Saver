@@ -1,10 +1,7 @@
 set number    "Sets number on the left
 set relativenumber  "Sets relative numbers
 set autoindent   "Sets auto indent
-"set mouse=a
 filetype indent on  "Sets auto indent depending on file type
-
-
 syntax on  "Colorizes the syntax
 
 " Map a key to run Betty style checker

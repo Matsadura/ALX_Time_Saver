@@ -2,14 +2,17 @@ import requests
 import base64
 import re
 
-username = 'Matsadura'  # Replace with your GitHub username
+username = 'IamZidane'  # Replace with your GitHub username
 token = 'token_here'  # Replace with your GitHub Token
-repo_owner = 'Matsadura' 
-repo_name = 'alx-low_level_programming' #Select the repo 
-repu_sub_dir = '0x06-pointers_arrays_strings' #Select the directory
+repo_owner = 'IamZidane' #Replace with your Github username
+repo_name = 'alx-low_level_programming' #Select the repo
+repu_sub_dir = input("Enter the sub directory: ") #Select the directory
 
 response = requests.get(f'https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{repu_sub_dir}',
                         auth=(username, token))
+if response.status_code == 404:
+    print("Error: The username, repo owner, repo name, or repo subdirectory does not exist.")
+    exit()
 data = response.json()
 
 readme_content = "| File      | Description |\n| ----------- | ----------- |\n"

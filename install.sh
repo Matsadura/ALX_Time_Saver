@@ -2,7 +2,7 @@
 
 # Making a directory for the scripts in home directory
 mkdir -p ~/.scripts
-cp gcc mk push ~/.scripts
+cp ./bash/gcc ./bash/mk ./bash/push ~/.scripts
 
 # Adding vim configuration
 cp -f vimrc ~/.vimrc
@@ -32,11 +32,6 @@ vim -u "$vim_config_file" +PlugInstall +qall
 # Installing Python and modules for README & Header Maker
 sudo apt-get update
 yes | sudo apt-get install python3
-
-modules=("requests" "base64" "re")
-
-for module in "${modules[@]}"; do
-	yes | pip install "$module"
-done
-
+yes | pip install requests
+yes | pip install prompt_toolkit
 
