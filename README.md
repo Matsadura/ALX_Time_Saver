@@ -98,7 +98,8 @@ This is need more work but it does the job for now, in order to take advantage o
 __NOTE : The main.h file will be in the current working directory__
 
 Follow these steps : 
-1 . save the page 
+
+1 . Save the page 
 
 ![1](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/b5cf7059-8b4e-43d9-a232-42526492ad23)
 
