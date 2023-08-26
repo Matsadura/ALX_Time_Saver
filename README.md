@@ -6,15 +6,15 @@ ALX Time Saver will help take some of the stress of these repetetive tasks and m
 
 ## Features
 1. Custom aliases for :
-* pushing
-* compiling
-* making a bash script
+     * pushing
+     * compiling
+     * making a bash script
 2. Custom Vim Configuration :
-* Lines numbers on the left side 
-* Run betty from vim
-* Compile the current file opened in vim
-* Remove all trailing white space with a sigle button
-* Automatically indent your code  
+     * Lines numbers on the left side 
+     * Run betty from vim
+     * Compile the current file opened in vim
+     * Remove all trailing white space with a sigle button
+     * Automatically indent your code  
 ## Installation 
 
 Clone the repository : 
