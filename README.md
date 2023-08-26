@@ -39,14 +39,20 @@ Let it do it's magic and you're all set !
 ## Features 
 ### The "push" command 
 Run the ``push`` command, select which file(s) to push and add your commit message.
+
 ![push](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/4fbd54d0-c7d7-47d1-9999-76c99c7e072b)
+
 ### The "cgcc" command
 Run the ``cgcc`` command, select the test file if it exists, the code to compile and you're all set, the purpose of this is to avoid typing all the flags everytime.
+
 ![cgcc](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/5025a37d-5674-4074-b220-09cd305eee7e)
+
 ### The "mkscript" command
 Run the ``mkscript``, type the name of your script, it'll automatically open it in bin with ``#!/bin/bash`` already written on top, do your thing and after exiting the file will already be given the executable permission.
 ### Vim Configs
+
 ![vim config](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/b438e9c2-2d0b-4e76-9a42-48f0bb11b40f)
+
 The numbers are useful to jump from line to line without actually counting how many lines are there.
 #### Compiling with F5
 In order to compile the current file by pressing F5 the following is required :
@@ -55,9 +61,13 @@ the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, a
 Instead of leaving VIM then running " betty file_name.c ", you could press F2 instead in VIM and get betty's results. 
 #### Auto Indent with F3
 For this I'll let these pictures do the talking
+
 Before pressing F3 
+
 ![Before indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/09af4a1e-20c0-45ee-9287-6fc4fb1237c4)
+
 After pressing F3
+
 ![After indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/fceb67e6-a750-47f9-b2db-6de13c8110ef)
 
 
