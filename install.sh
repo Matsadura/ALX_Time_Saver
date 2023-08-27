@@ -2,7 +2,7 @@
 
 # Making a directory for the scripts in home directory
 mkdir -p ~/.scripts
-cp ./bash/gcc ./bash/mk ./bash/push ./python/header_maker.py ~/.scripts
+cp ./bash/gcc ./bash/mk ./bash/push ./python/header_maker.py ./python/files_maker.py ~/.scripts
 
 # Adding vim configuration
 cp -f vimrc ~/.vimrc
@@ -16,6 +16,7 @@ alias mkscript=". ~/.scripts/mk"
 alias cgcc=". ~/.scripts/gcc"
 alias push=". ~/.scripts/push"
 alias mkheader="python3 ~/.scripts/header_maker.py"
+alias mkfiles="python3 ~/.scripts/files_maker.py"
 EOF
 
 
