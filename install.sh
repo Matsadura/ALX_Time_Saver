@@ -19,6 +19,8 @@ alias mkheader="python3 ~/.scripts/header_maker.py"
 alias mkfiles="python3 ~/.scripts/files_maker.py"
 EOF
 
+# Installing curl
+yes | sudo apt install curl
 
 # Installing TrailerTrash vim plugin
 vim_config_file=~/.vimrc
