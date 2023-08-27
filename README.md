@@ -4,7 +4,13 @@
 
 ALX Time Saver will help take some of the stress of these repetetive tasks and more.
 
-__IMPORTANT REMARQUE : Learn how to do these operations manually before you start using this, we're here to LEARN at Alx.__
+__IMPORTANT REMARQUE : Learn how to do these operations manually before you start using this, we're here to LEARN at ALX.__
+
+If you like the project please give it a star, and feel free to contribute.
+
+To contribute : 
+Fork the project, make your changes with proper documentation, make sure they work, make a pull request.
+Contibutions can vary from fixing typos to adding new features.
 
 ## Features
 1. Custom aliases for :
@@ -23,7 +29,9 @@ __IMPORTANT REMARQUE : Learn how to do these operations manually before you star
      * Automatically puts all your project files in a table with interactive names
 
 4. Header maker
-     * Extracts all the fucntions prototypes of a certain project and appends them in a "main.h" file 
+     * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file 
+5. Necessary Files Maker
+     * Creates all the files needed
  
 ## Installation 
 
@@ -31,7 +39,7 @@ Clone the repository :
  
 ``` git clone https://github.com/Matsadura/ALX_Time_Saver/ ```
 
-Then go the cloned directory and run the installation script :
+Then go to the cloned directory and run the installation script :
 
 ``` ./install.sh ```
 
@@ -57,7 +65,7 @@ Run the ``mkscript``, type the name of your script, it'll automatically open it 
 The numbers are useful to jump from line to line without actually counting how many lines are there.
 #### Compiling with F5
 In order to compile the current file by pressing F5 the following is required :
-the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, and the test file must which is usually "number"-main.c exemple "0-main.c" should be in this format task"number".c for exemple ``task0.c`` (If you don't like this format you can change it, you're a future software engineer after all).
+the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, and the test file which is usually "number"-main.c exemple "0-main.c" should be in this format task"number".c for exemple ``task0.c`` (If you don't like this format you can change it, you're a future software engineer after all).
 If the test file doesn't exist use the ``cgcc`` command instead.
 #### Betty with F2
 Instead of leaving VIM then running " betty file_name.c ", you could press F2 instead in VIM and get betty's results. 
@@ -73,7 +81,7 @@ After pressing F3 :
 ![After indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/fceb67e6-a750-47f9-b2db-6de13c8110ef)
 
 #### Remove WhiteSpace with F4
-White space will be highlighted as Red.
+White space will be highlighted in Red.
 
 Before Pressing F4 : 
 
@@ -94,13 +102,14 @@ launch the script with ``python3 read_maker.py``, then enter the name of subdire
 
 If you click on a file it'll open it (in github of course).
 
-### Header Maker
-This needs more work but it does the job for now, in order to take advantage of it you must download the page of the project by saving it as ``.html``, then run the script with ``python3 header_maker.py``, the output should be in ``main.h``.
-__NOTE : The main.h file will be in the current working directory__
+### Header Maker & Files maker
+This needs more work but it does the job for now, in order to take advantage of it you must download the page of the project by saving it as ``.html``, then : 
+* For the header maker run the script with ``mkheader``, the output should be in ``main.h`` in your location of choice.
+* For the files maker run the script with ``mkfiles``, the new files will be in your location of choice.
 
-Follow these steps : 
+Follow these steps for both scripts : 
 
-1 . Save the page 
+1 . Save the page :
 
 ![1](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/b5cf7059-8b4e-43d9-a232-42526492ad23)
 
@@ -108,15 +117,20 @@ Follow these steps :
 
 ![3 - save or change name](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/8976c499-cf34-4df5-91e8-da0b9d268deb)
 
-2 . Launch the script
+2 . Launch the script (use ``mkheader`` or ``mkfiles``) :
 
 ![4](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/53c5c4d0-424c-4689-891e-3192554ae8a3)
 
 ![5](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/72687735-cd9a-4279-ad30-864b9698f5fe)
 
-3 . Enjoy 
+
+3 . Enjoy !
 
 ![6](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/7f4d5f86-0640-4ce3-b137-b8329c76c4b9)
+
+This is the output of File_Maker
+
+![File_maker](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/9e7c91e5-2577-4530-b033-2f7d5818d0ee)
 
 
 
