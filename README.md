@@ -10,6 +10,7 @@ If you like the project please give it a star, and feel free to contribute.
 
 To contribute : 
 Fork the project, make your changes with proper documentation, make sure they work, make a pull request.
+
 Contibutions can vary from fixing typos to adding new features.
 
 ## Features
@@ -43,7 +44,9 @@ Then go to the cloned directory and run the installation script :
 
 ``` ./install.sh ```
 
-Let it do it's magic and you're all set ! 
+Let it do it's magic and you're all set !
+
+__NOTE : For the aliases to take effect you must restart your system__ 
 
 ## Features 
 ### The "push" command 
