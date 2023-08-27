@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Use a loop to iterate through all arguments
+for arg in "$@"; do
+    # Store the arguments in an array
+    func+=("$arg")
+done
+
+# Determine the number of source files
+num_func=${#func[@]}
+
+# Get the last source file as the main source file
+main_func="${func[$((num_func - 1))]}"
+
+# Compile all source files in the array
+gcc -Wall -pedantic -Werror -Wextra -std=gnu89 "${func[@]}" -o "$(echo "$main_func" | tr -d '.c')"
+
