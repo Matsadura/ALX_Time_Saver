@@ -11,6 +11,7 @@ class TildeExpandingPathCompleter(Completer):
             yield Completion(completion.text, start_position=document.cursor_position - len(document.text_before_cursor))
 
 file_name = prompt('Please enter the file name: ', completer=TildeExpandingPathCompleter())
+file_name = os.path.expanduser(file_name)
 
 if not os.path.isfile(file_name):
     print(f"Error: The file {file_name} does not exist.")
