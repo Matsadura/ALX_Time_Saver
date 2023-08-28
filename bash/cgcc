@@ -15,5 +15,5 @@ num_func=${#func[@]}
 
 main_func="${func[$((num_func - 1))]}"
 
-gcc -Wall -pedantic -Werror -Wextra -std=gnu89 "${func[@]}" -o "${output_name:-$(echo "$main_func" | tr -d '.c')}"
+gcc -Wall -pedantic -Werror -Wextra -std=gnu89 "${func[@]}" -o "${output_name:-$(echo "$main_func" | rev | cut -d '.' -f 2- | rev)}"
 
