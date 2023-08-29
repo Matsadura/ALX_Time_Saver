@@ -32,7 +32,7 @@ Contibutions can vary from fixing typos to adding new features.
 4. AIO Header / Test Files / Project Files Maker
      * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file.
      * Creates all the project files.
-     * Extracts all the test files aka "x-main.c" to files aka "taskx.c" (to be compitable with compiling via VIM with F5)
+     * Extracts all the test files aka "x-main.c"  (to be compitable with compiling via VIM with F5)
  
 ## Installation 
 
@@ -68,7 +68,7 @@ Run the ``mkscript``, type the name of your script, it'll automatically open it 
 The numbers are useful to jump from line to line without actually counting how many lines are there.
 #### Compiling with F5
 In order to compile the current file by pressing F5 the following is required :
-the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, and the test file which is usually "number"-main.c exemple "0-main.c" should be in this format task"number".c for exemple ``task0.c`` (If you don't like this format you can change it, you're a future software engineer after all).
+the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, and the test file which is usually "number"-main.c exemple "0-main.c" .
 If the test file doesn't exist use the ``cgcc`` command instead.
 #### Betty with F2
 Instead of leaving VIM then running " betty file_name.c ", you could press F2 instead in VIM and get betty's results. 
@@ -121,14 +121,17 @@ Follow these steps :
 
 2 . Launch the script (use ``mkfiles``) :
 
-![all in one](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/e00cae03-9ee8-46dd-bff6-ab0af3de4f97)
 
+![readme1](https://github.com/Matsadura/ALX_Time_Saver/assets/138726284/b7edef4b-b18a-4998-b8c7-591b8164f6f6)
 
 
 3 . Enjoy !
 
 
-![all in one output](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/3bb73d6c-83f0-4875-9eb1-a51b8a80d075)
+![readme2](https://github.com/Matsadura/ALX_Time_Saver/assets/138726284/2bda0201-1fdf-4755-a810-9e21c1268e70)
+
+
+
 
 
 
