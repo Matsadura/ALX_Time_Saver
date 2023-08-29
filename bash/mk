@@ -1,8 +1,9 @@
 #!/bin/bash
 read -e -p "Enter the name of the file: " name
 
-echo '#!/bin/bash' > $name
-
-chmod u+x $name
-
-vim $name
+if [ -e "$name" ]; then
+	vim $name
+else
+	echo '#!/bin/bash' > $name
+	chmod u+x $name
+	vim $name
