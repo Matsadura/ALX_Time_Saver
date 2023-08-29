@@ -29,10 +29,10 @@ Contibutions can vary from fixing typos to adding new features.
 3. Readme maker
      * Automatically puts all your project files in a table with interactive names
 
-4. Header maker
-     * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file 
-5. Necessary Files Maker
-     * Creates all the files needed
+4. AIO Header / Test Files / Project Files Maker
+     * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file.
+     * Creates all the project files.
+     * Extracts all the test files aka "x-main.c"  (to be compitable with compiling via VIM with F5)
  
 ## Installation 
 
@@ -68,7 +68,7 @@ Run the ``mkscript``, type the name of your script, it'll automatically open it 
 The numbers are useful to jump from line to line without actually counting how many lines are there.
 #### Compiling with F5
 In order to compile the current file by pressing F5 the following is required :
-the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, and the test file which is usually "number"-main.c exemple "0-main.c" should be in this format task"number".c for exemple ``task0.c`` (If you don't like this format you can change it, you're a future software engineer after all).
+the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, and the test file which is usually "number"-main.c exemple "0-main.c" .
 If the test file doesn't exist use the ``cgcc`` command instead.
 #### Betty with F2
 Instead of leaving VIM then running " betty file_name.c ", you could press F2 instead in VIM and get betty's results. 
@@ -105,12 +105,11 @@ launch the script with ``python3 read_maker.py``, then enter the name of subdire
 
 If you click on a file it'll open it (in github of course).
 
-### Header Maker & Files maker
+### All in one HEADER / TESTS / FILES Maker
 This needs more work but it does the job for now, in order to take advantage of it you must download the page of the project by saving it as ``.html``, then : 
-* For the header maker run the script with ``mkheader``, the output should be in ``main.h`` in your location of choice.
-* For the files maker run the script with ``mkfiles``, the new files will be in your location of choice.
+* Run the script with ``mkfiles``, the new files will be in your location of choice.
 
-Follow these steps for both scripts : 
+Follow these steps : 
 
 1 . Save the page :
 
@@ -120,20 +119,19 @@ Follow these steps for both scripts :
 
 ![3 - save or change name](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/8976c499-cf34-4df5-91e8-da0b9d268deb)
 
-2 . Launch the script (use ``mkheader`` or ``mkfiles``) :
+2 . Launch the script (use ``mkfiles``) :
 
-![4](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/53c5c4d0-424c-4689-891e-3192554ae8a3)
 
-![5](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/72687735-cd9a-4279-ad30-864b9698f5fe)
+![readme1](https://github.com/Matsadura/ALX_Time_Saver/assets/138726284/b7edef4b-b18a-4998-b8c7-591b8164f6f6)
 
 
 3 . Enjoy !
 
-![6](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/7f4d5f86-0640-4ce3-b137-b8329c76c4b9)
 
-This is the output of File_Maker
+![readme2](https://github.com/Matsadura/ALX_Time_Saver/assets/138726284/2bda0201-1fdf-4755-a810-9e21c1268e70)
 
-![File_maker](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/9e7c91e5-2577-4530-b033-2f7d5818d0ee)
+
+
 
 
 
