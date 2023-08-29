@@ -33,8 +33,6 @@ Contibutions can vary from fixing typos to adding new features.
      * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file.
      * Creates all the project files.
      * Extracts all the test files aka "x-main.c" to files aka "taskx.c" (to be compitable with compiling via VIM with F5)
-5. Necessary Files Maker
-     * Creates all the files needed
  
 ## Installation 
 
