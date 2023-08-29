@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# These fuctions are used to log messages to the terminal with prefixed colored state
+
+#Define Colors
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RESET='\033[0m'
+
+# error - prints error messages
+error() {
+	echo -e "${RED}Error:${RESET} $1"
+}
+
+# info - prints info messages
+info() {
+	echo -e "${BLUE}Info:${RESET} $1"
+}
+
+# success - prints success messages
+success() {
+	echo -e "${GREEN}Success:${RESET} $1"
+}

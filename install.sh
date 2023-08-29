@@ -1,30 +1,32 @@
 #!/bin/bash
+SCRIPTS_PATH=~/.scripts
+
+# Making a directory for the scripts in home directory
+mkdir -p SCRIPTS_PATH
+
+cp ./bash/* SCRIPTS_PATH
+cp ./python/* SCRIPTS_PATH
+p
+# Adding vim configuration
+cp -f vimrc ~/.vimrc
+
+# Importing logger
+source SCRIPTS_PATH/logger
 
 # Installing All dependencies
 if [ -f /etc/apt/sources.list ]; then
-	echo "Debian-based system Detected."
+	info "Debian-based system Detected."
+
 	# Use apt for package management
 	sudo apt-get update
-	yes | sudo apt-get install python3 python3-pip curl vim 
+	sudo apt-get install -y python3 python3-pip curl vim
 	yes | pip install requests
 	yes | pip install prompt_toolkit
-elif [ -f /etc/pacman.conf ]; then
-	echo "Arch-based system Detected."
-	# TODO: Use pacman for package management
-
-	exit 1
 else
-	echo "Error: Unknown distribution"
+	error "Unknown distribution, Exiting gracefully."
+	info "This script is dedicated to ALX Sandboxes only."
 	exit 1
 fi
-
-
-# Making a directory for the scripts in home directory
-mkdir -p ~/.scripts
-cp ./bash/gcc ./bash/mk ./bash/push ./python/header_maker.py ./python/files_maker.py ~/.scripts
-
-# Adding vim configuration
-cp -f vimrc ~/.vimrc
 
 
 # Appending aliases in Bashrc
