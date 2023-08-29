@@ -2,7 +2,7 @@
 
 # Installing All dependencies
 if [ -f /etc/apt/sources.list ]; then
-	echo "Debian-based system Deteted."
+	echo "Debian-based system Detected."
 	# Use apt for package management
 	sudo apt-get update
 	yes | sudo apt-get install python3 python3-pip curl vim 
@@ -10,9 +10,8 @@ if [ -f /etc/apt/sources.list ]; then
 	yes | pip install prompt_toolkit
 elif [ -f /etc/pacman.conf ]; then
 	echo "Arch-based system Detected."
-	# Use pacman for package management
+	# TODO: Use pacman for package management
 
-	## TODO: Add pacman package manager
 	exit 1
 else
 	echo "Error: Unknown distribution"
