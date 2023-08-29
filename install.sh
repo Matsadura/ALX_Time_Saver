@@ -2,16 +2,16 @@
 SCRIPTS_PATH=~/.scripts
 
 # Making a directory for the scripts in home directory
-mkdir -p SCRIPTS_PATH
+mkdir -p $SCRIPTS_PATH
 
-cp ./bash/* SCRIPTS_PATH
-cp ./python/* SCRIPTS_PATH
+cp ./bash/* $SCRIPTS_PATH
+cp ./python/* $SCRIPTS_PATH
 
 # Adding vim configuration
 cp -f vimrc ~/.vimrc
 
 # Importing logger
-source SCRIPTS_PATH/logger
+source $SCRIPTS_PATH/logger
 
 # Installing All dependencies
 if [ -f /etc/apt/sources.list ]; then
