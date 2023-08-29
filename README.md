@@ -29,10 +29,10 @@ Contibutions can vary from fixing typos to adding new features.
 3. Readme maker
      * Automatically puts all your project files in a table with interactive names
 
-4. Header maker
-     * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file 
-5. Necessary Files Maker
-     * Creates all the files needed
+4. AIO Header / Test Files / Project Files Maker
+     * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file.
+     * Creates all the project files.
+     * Extracts all the test files aka "x-main.c" to files aka "taskx.c" (to be compitable with compiling via VIM with F5)
  
 ## Installation 
 
@@ -105,12 +105,11 @@ launch the script with ``python3 read_maker.py``, then enter the name of subdire
 
 If you click on a file it'll open it (in github of course).
 
-### Header Maker & Files maker
+### All in one HEADER / TESTS / FILES Maker
 This needs more work but it does the job for now, in order to take advantage of it you must download the page of the project by saving it as ``.html``, then : 
-* For the header maker run the script with ``mkheader``, the output should be in ``main.h`` in your location of choice.
-* For the files maker run the script with ``mkfiles``, the new files will be in your location of choice.
+* Run the script with ``mkfiles``, the new files will be in your location of choice.
 
-Follow these steps for both scripts : 
+Follow these steps : 
 
 1 . Save the page :
 
@@ -120,20 +119,17 @@ Follow these steps for both scripts :
 
 ![3 - save or change name](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/8976c499-cf34-4df5-91e8-da0b9d268deb)
 
-2 . Launch the script (use ``mkheader`` or ``mkfiles``) :
+2 . Launch the script (use ``mkfiles``) :
 
-![4](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/53c5c4d0-424c-4689-891e-3192554ae8a3)
+![all in one](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/e00cae03-9ee8-46dd-bff6-ab0af3de4f97)
 
-![5](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/72687735-cd9a-4279-ad30-864b9698f5fe)
 
 
 3 . Enjoy !
 
-![6](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/7f4d5f86-0640-4ce3-b137-b8329c76c4b9)
+![all in one output](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/3bb73d6c-83f0-4875-9eb1-a51b8a80d075)
 
-This is the output of File_Maker
 
-![File_maker](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/9e7c91e5-2577-4530-b033-2f7d5818d0ee)
 
 
 

@@ -2,7 +2,7 @@
 
 # Making a directory for the scripts in home directory
 mkdir -p ~/.scripts
-cp ./bash/gcc ./bash/mk ./bash/push ./python/header_maker.py ./python/files_maker.py ~/.scripts
+cp ./bash/gcc ./bash/mk ./bash/push ./python/files_maker.py ~/.scripts
 
 # Adding vim configuration
 cp -f vimrc ~/.vimrc
@@ -29,15 +29,12 @@ if ! grep -q "alias push=" ~/.bashrc; then
     echo 'alias push=". ~/.scripts/push"' >> ~/.bashrc
 fi
 
-# Check for 'mkheader' alias
-if ! grep -q "alias mkheader=" ~/.bashrc; then
-    echo 'alias mkheader="python3 ~/.scripts/header_maker.py"' >> ~/.bashrc
-fi
-
 # Check for 'mkfiles' alias
 if ! grep -q "alias mkfiles=" ~/.bashrc; then
     echo 'alias mkfiles="python3 ~/.scripts/files_maker.py"' >> ~/.bashrc
 fi
+
+source ~/.bashrc
 
 # Installing curl
 yes | sudo apt install curl
