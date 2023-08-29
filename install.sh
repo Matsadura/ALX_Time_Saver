@@ -6,7 +6,7 @@ mkdir -p SCRIPTS_PATH
 
 cp ./bash/* SCRIPTS_PATH
 cp ./python/* SCRIPTS_PATH
-p
+
 # Adding vim configuration
 cp -f vimrc ~/.vimrc
 
@@ -19,7 +19,7 @@ if [ -f /etc/apt/sources.list ]; then
 
 	# Use apt for package management
 	sudo apt-get update
-	sudo apt-get install -y python3 python3-pip curl vim
+	sudo apt-get install -y python3 python3-pip curl
 	yes | pip install requests
 	yes | pip install prompt_toolkit
 else
