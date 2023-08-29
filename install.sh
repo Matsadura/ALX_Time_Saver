@@ -9,15 +9,35 @@ cp -f vimrc ~/.vimrc
 
 
 # Appending aliases in Bashrc
-cat << EOF >> ~/.bashrc
-# Alias for scripts
-alias cl="clear"
-alias mkscript=". ~/.scripts/mk"
-alias cgcc=". ~/.scripts/gcc"
-alias push=". ~/.scripts/push"
-alias mkheader="python3 ~/.scripts/header_maker.py"
-alias mkfiles="python3 ~/.scripts/files_maker.py"
-EOF
+# Check for 'cl' alias
+if ! grep -q "alias cl=" ~/.bashrc; then
+    echo 'alias cl="clear"' >> ~/.bashrc
+fi
+
+# Check for 'mkscript' alias
+if ! grep -q "alias mkscript=" ~/.bashrc; then
+    echo 'alias mkscript=". ~/.scripts/mk"' >> ~/.bashrc
+fi
+
+# Check for 'cgcc' alias
+if ! grep -q "alias cgcc=" ~/.bashrc; then
+    echo 'alias cgcc=". ~/.scripts/gcc"' >> ~/.bashrc
+fi
+
+# Check for 'push' alias
+if ! grep -q "alias push=" ~/.bashrc; then
+    echo 'alias push=". ~/.scripts/push"' >> ~/.bashrc
+fi
+
+# Check for 'mkheader' alias
+if ! grep -q "alias mkheader=" ~/.bashrc; then
+    echo 'alias mkheader="python3 ~/.scripts/header_maker.py"' >> ~/.bashrc
+fi
+
+# Check for 'mkfiles' alias
+if ! grep -q "alias mkfiles=" ~/.bashrc; then
+    echo 'alias mkfiles="python3 ~/.scripts/files_maker.py"' >> ~/.bashrc
+fi
 
 # Installing curl
 yes | sudo apt install curl
