@@ -125,14 +125,10 @@ Follow these steps :
 ![readme1](https://github.com/Matsadura/ALX_Time_Saver/assets/138726284/b7edef4b-b18a-4998-b8c7-591b8164f6f6)
 
 
-
-
 3 . Enjoy !
 
+
 ![readme2](https://github.com/Matsadura/ALX_Time_Saver/assets/138726284/2bda0201-1fdf-4755-a810-9e21c1268e70)
-
-
-
 
 
 

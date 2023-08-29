@@ -39,7 +39,7 @@ else:
         code_parts = re.findall(r'(#include.*})', code, re.DOTALL | re.MULTILINE)
         file_name = re.search(r'(\d+)-main\.c', code)
         if file_name:
-            file_name = "task" + file_name.group(1) + ".c"
+            file_name = file_name.group(1) + "-main.c"
         else:
             continue
 
