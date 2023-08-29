@@ -15,6 +15,7 @@ cp -f vimrc ~/.vimrc
 # Importing logger
 source $SCRIPTS_PATH/logger
 
+info "Installing dependencies..."
 # Installing All dependencies
 if [ -f /etc/apt/sources.list ]; then
 	info "Debian-based system Detected."
@@ -30,7 +31,7 @@ else
 	exit 1
 fi
 
-success "All dependencies installed are installed."
+success "Dependencies installed."
 
 # Appending aliases in Bashrc
 # Check for 'cl' alias
@@ -62,7 +63,7 @@ fi
 vim_config_file=~/.vimrc
 
 if ! [ -f ~/.vim/autoload/plug.vim ]; then
-    echo "Installing Vim-Plug..."
+    info "Installing Vim-Plug..."
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
