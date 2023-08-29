@@ -1,8 +1,11 @@
 #!/bin/bash
 
 name=$1
-
-touch $name
-echo "#!/bin/bash" > $name
-chmod u+x $name
-vim $name
+if [ -e "$name" ]; then
+	vim $name
+else
+	touch $name
+	echo "#!/bin/bash" > $name
+	chmod u+x $name
+	vim $name
+fi
