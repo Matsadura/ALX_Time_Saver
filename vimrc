@@ -22,7 +22,7 @@ nnoremap <F3> :%norm! ggVG=<CR>
 function! Compile()
   let source_filename = expand('%')
   let number = matchstr(source_filename, '\d\+')
-  let test_filename =  number . '-main.c'
+  let test_filename = number . '-main.c'
   let output_filename = substitute(source_filename, '\.c$', '', '')
   let command = 'gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c ' . source_filename . ' ' . test_filename . ' -o ' . output_filename
   execute '!'.command

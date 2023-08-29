@@ -127,9 +127,8 @@ Follow these steps :
 
 3 . Enjoy !
 
+
 ![all in one output](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/3bb73d6c-83f0-4875-9eb1-a51b8a80d075)
-
-
 
 
 
