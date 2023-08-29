@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# checking the arguments (functions) in the input
+while [ $# -gt 0 ]; do
+    if [ "$1" = "-o" ]; then	# if an arg is '-o' store the next argument in $output_name
+        shift
+        output_name="$1"
+        shift
+    else
+        func+=("$1")		# storing the arguments in $func
+        shift
+    fi
+done
+
+# counting how many arguments in input
+num_func=${#func[@]}
+
+# seting the last argument (before -o if -o exists) as the main function
+main_func="${func[$((num_func - 1))]}"
+
+# adding the all arguments before -o if it exists in ${func[@]} and
+# seting the output to be the same name as main function or choosing name if we use -o
+gcc -Wall -pedantic -Werror -Wextra -std=gnu89 "${func[@]}" -o "${output_name:-$(echo "$main_func" | rev | cut -d '.' -f 2- | rev)}"
+
