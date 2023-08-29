@@ -1,5 +1,25 @@
 #!/bin/bash
 
+# Installing All dependencies
+if [ -f /etc/apt/sources.list ]; then
+	echo "Debian-based system Deteted."
+	# Use apt for package management
+	sudo apt-get update
+	yes | sudo apt-get install python3 python3-pip curl vim 
+	yes | pip install requests
+	yes | pip install prompt_toolkit
+elif [ -f /etc/pacman.conf ]; then
+	echo "Arch-based system Detected."
+	# Use pacman for package management
+
+	## TODO: Add pacman package manager
+	exit 1
+else
+	echo "Error: Unknown distribution"
+	exit 1
+fi
+
+
 # Making a directory for the scripts in home directory
 mkdir -p ~/.scripts
 cp ./bash/gcc ./bash/mk ./bash/push ./python/header_maker.py ./python/files_maker.py ~/.scripts
@@ -39,9 +59,6 @@ if ! grep -q "alias mkfiles=" ~/.bashrc; then
     echo 'alias mkfiles="python3 ~/.scripts/files_maker.py"' >> ~/.bashrc
 fi
 
-# Installing curl
-yes | sudo apt install curl
-
 # Installing TrailerTrash vim plugin
 vim_config_file=~/.vimrc
 
@@ -53,10 +70,5 @@ fi
 
 vim -u "$vim_config_file" +PlugInstall +qall
 
-# Installing Python and modules for README & Header Maker
-sudo apt-get update
-yes | sudo apt-get install python3
-yes | sudo apt-get install python3-pip
-yes | pip install requests
-yes | pip install prompt_toolkit
+
 
