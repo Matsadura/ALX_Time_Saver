@@ -1,9 +1,11 @@
 #!/bin/bash
+
 SCRIPTS_PATH=~/.scripts
 
-# Making a directory for the scripts in home directory
+# Creating scripts directory
 mkdir -p $SCRIPTS_PATH
 
+## TODO: Fix paths (in case of script execited from other directories)
 cp ./bash/* $SCRIPTS_PATH
 cp ./python/* $SCRIPTS_PATH
 
@@ -16,6 +18,7 @@ source $SCRIPTS_PATH/logger
 # Installing All dependencies
 if [ -f /etc/apt/sources.list ]; then
 	info "Debian-based system Detected."
+
 	# Use apt for package management
 	sudo apt-get update
 	sudo apt-get install -y python3 python3-pip curl
@@ -27,7 +30,7 @@ else
 	exit 1
 fi
 
-success "All dependencies installed successfully."
+success "All dependencies installed are installed."
 
 # Appending aliases in Bashrc
 # Check for 'cl' alias

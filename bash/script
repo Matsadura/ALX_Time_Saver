@@ -1,7 +1,0 @@
-#!/bin/bash
-
-source /home/sickass/Desktop/alx/ALX_Time_Saver/bash/logger
-
-error "Pfff"
-info "Iffff"
-success "Wee"
