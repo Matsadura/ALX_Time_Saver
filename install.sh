@@ -16,7 +16,6 @@ source $SCRIPTS_PATH/logger
 # Installing All dependencies
 if [ -f /etc/apt/sources.list ]; then
 	info "Debian-based system Detected."
-
 	# Use apt for package management
 	sudo apt-get update
 	sudo apt-get install -y python3 python3-pip curl
@@ -28,6 +27,7 @@ else
 	exit 1
 fi
 
+success "All dependencies installed successfully."
 
 # Appending aliases in Bashrc
 # Check for 'cl' alias
