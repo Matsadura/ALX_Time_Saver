@@ -32,7 +32,7 @@ Contibutions can vary from fixing typos to adding new features.
 4. AIO Header / Test Files / Project Files Maker
      * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file.
      * Creates all the project files.
-     * Extracts all the test files aka "x-main.c"  (to be compitable with compiling via VIM with F5)
+     * Extracts all the test files aka "x-main.c".
  
 ## Installation 
 
@@ -52,15 +52,21 @@ __NOTE : For the aliases to take effect you must restart your system__
 ### The "push" command 
 Run the ``push`` command, select which file(s) to push and add your commit message.
 
-![push](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/4fbd54d0-c7d7-47d1-9999-76c99c7e072b)
+![push](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1788a9aa-ba23-4858-a14c-23a2c374c477)
+
 
 ### The "cgcc" command
 Run the ``cgcc`` command, select the test file if it exists, the code to compile and you're all set, the purpose of this is to avoid typing all the flags everytime.
 
-![cgcc](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/5025a37d-5674-4074-b220-09cd305eee7e)
+![cgcc](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1b42410f-4053-45b1-a251-267f1cefbce6)
+
 
 ### The "mkscript" command
 Run the ``mkscript``, type the name of your script, it'll automatically open it in vim with ``#!/bin/bash`` already written on top, do your thing and after exiting the file will already be given the executable permission.
+
+![mkscript](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/b9961392-8bdd-4025-a020-d3f1fdcdc68b)
+
+
 ### Vim Configs
 
 ![vim config](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/b438e9c2-2d0b-4e76-9a42-48f0bb11b40f)
@@ -73,26 +79,16 @@ If the test file doesn't exist use the ``cgcc`` command instead.
 #### Betty with F2
 Instead of leaving VIM then running " betty file_name.c ", you could press F2 instead in VIM and get betty's results. 
 #### Auto Indent with F3
-For this I'll let these pictures do the talking.
+For this I'll let this demonstration do the talking.
 
-Before pressing F3 :
+![Vim AUTO INdent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/8320f485-856d-4e88-a0dc-c50446d79b9b)
 
-![Before indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/09af4a1e-20c0-45ee-9287-6fc4fb1237c4)
-
-After pressing F3 :
-
-![After indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/fceb67e6-a750-47f9-b2db-6de13c8110ef)
 
 #### Remove WhiteSpace with F4
 White space will be highlighted in Red.
 
-Before Pressing F4 : 
+![TrailierTrash](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/474b5690-1ace-412c-8665-7ed248d5a2a0)
 
-![Red Whitespace](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/a1ce22ce-f8d8-4c41-b4eb-e5a5adb70e67)
-
-After pressing F4 : 
-
-![After whitespace](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/3f3aa40a-550e-47d5-aa58-004644a570f8)
 
 ### Readme Maker
 To use this script first you must configure it, replace with your info :
@@ -122,13 +118,15 @@ Follow these steps :
 2 . Launch the script (use ``mkfiles``) :
 
 
-![readme1](https://github.com/Matsadura/ALX_Time_Saver/assets/138726284/b7edef4b-b18a-4998-b8c7-591b8164f6f6)
+![mkfiles input](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/97305ab8-5bec-4a06-ade9-47fa0c360e7d)
+
 
 
 3 . Enjoy !
 
+![mkfiles output showcase](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1c2fba58-c281-426d-952d-014c769de3d2)
 
-![readme2](https://github.com/Matsadura/ALX_Time_Saver/assets/138726284/2bda0201-1fdf-4755-a810-9e21c1268e70)
+
 
 
 
