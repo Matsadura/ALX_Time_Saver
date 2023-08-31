@@ -76,8 +76,16 @@ The numbers are useful to jump from line to line without actually counting how m
 In order to compile the current file by pressing F5 the following is required :
 the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, and the test file which is usually "number"-main.c exemple "0-main.c" .
 If the test file doesn't exist use the ``cgcc`` command instead.
+
+![VIM F5 Showcase](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/46ecc108-9288-4f7f-a5b2-b5302f251348)
+
+
 #### Betty with F2
 Instead of leaving VIM then running " betty file_name.c ", you could press F2 instead in VIM and get betty's results. 
+
+![Betty](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/ccb022bf-b0fa-4089-bfdb-2fa061632744)
+
+
 #### Auto Indent with F3
 For this I'll let this demonstration do the talking.
 
