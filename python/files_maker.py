@@ -1,5 +1,6 @@
 import os
 import re
+import quopri
 import html
 from prompt_toolkit import prompt
 from prompt_toolkit.document import Document
@@ -44,9 +45,10 @@ else:
             continue
 
         for part in code_parts:
+            decoded_part = quopri.decodestring(part).decode()
             output_file = file_name
             with open(output_file, "w") as file:
-                file.write(html.unescape(part))
+                file.write(html.unescape(decoded_part))
 
             if os.path.isfile(output_file):
                 created_files.append(output_file)
