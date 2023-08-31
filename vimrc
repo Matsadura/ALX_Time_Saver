@@ -5,10 +5,10 @@ filetype indent on  "Sets auto indent depending on file type
 syntax on  "Colorizes the syntax
 
 " Highlight cursor line underneath the cursor horizontally.
-set cursorline
+" set cursorline
 
 " Highlight cursor line underneath the cursor vertically.
-set cursorcolumn
+" set cursorcolumn
 
 " Enable auto completion menu after pressing TAB.
 set wildmenu
