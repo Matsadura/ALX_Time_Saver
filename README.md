@@ -34,17 +34,24 @@ Contibutions can vary from fixing typos to adding new features.
      * Creates all the project files.
      * Extracts all the test files aka "x-main.c".
  
-## Installation 
+## Installation in 3 simple steps 😃
 
-Clone the repository : 
- 
-``` git clone https://github.com/Matsadura/ALX_Time_Saver/ ```
+1. Clone the repository  
+     ```
+     git clone https://github.com/Matsadura/ALX_Time_Saver/ 
+     ```
 
-Then go to the cloned directory and run the installation script :
+2. Go to the cloned directory   
+     ```
+     cd ALX_Time_Saver
+     ```
 
-``` ./install.sh ```
+3. Run the installation script  
+     ```
+     ./install.sh
+     ```
 
-Let it do it's magic and you're all set !
+Let it do it's magic and you're all set 🚀
 
 __NOTE : For the aliases to take effect you must restart your system__ 
 
