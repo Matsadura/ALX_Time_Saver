@@ -2,9 +2,9 @@ import requests
 import base64
 import re
 
-username = 'IamZidane'  # Replace with your GitHub username
-token = 'token_here'  # Replace with your GitHub Token
-repo_owner = 'IamZidane' #Replace with your Github username
+username = 'Matsadura'  # Replace with your GitHub username
+token = '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'  # Replace with your GitHub Token
+repo_owner = 'Matsadura' #Replace with your Github username
 repo_name = 'alx-low_level_programming' #Select the repo
 repu_sub_dir = input("Enter the sub directory: ") #Select the directory
 

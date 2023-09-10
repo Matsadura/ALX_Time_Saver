@@ -1,13 +1,49 @@
 #!/bin/bash
-read -e -p "File name(s) : " file_name
 
-printf "What's your commit ? : "
+error="Error:"
+notice="Notice:"
+
+force_flag=""
+if [[ $1 == "-f" ]]; then
+	force_flag="-f"
+	shift
+fi
+
+if [[ "$#" -gt 0 ]];then
+	file_names=("$@")
+else
+	read -e -p "File name(s): " -a file_name
+	IFS=' ' read -r -a file_names <<< $file_name
+fi
+
+if [[ ! $force_flag == "-f"  ]]; then
+	ignored_files=()
+
+	for file_name in "${file_names[@]}"; do
+		if git check-ignore -q "$file_name"; then
+			ignored_files+=("$file_name")
+		fi
+	done
+
+	if (( "${#ignored_files[@]}" > 0 )); then
+		echo -e "\e[31m$error\e[0m The following files are ignored in .gitignore: ${ignored_files[*]}"
+		echo -e "\e[36m$notice\e[0m Use '\e[33m$0 -f\e[0m' to force push the ignored files"
+		exit 0
+	fi
+fi
+
+printf "what's your commit? : "
 read commit_msg
 
-IFS=' ' read -r -a files <<< $file_name
 
-for files_name in ${files[@]}; do
-	git add $file_name
+for file_name in "${file_names[@]}"; do
+	if [[ $force_flag == "-f" ]]; then
+		git add -f "$file_name"
+	else
+		git add "$file_name"
+	fi
 done
-	git commit -m "$commit_msg"
-	git push
+
+git commit -m "$commit_msg"
+git push
+

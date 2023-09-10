@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $# -gt 0 ]]; then
+	file_names="$@"
+fi
+
+if [[ $# -eq 0 ]]; then
+	read -e -p "Name of the test file: " test_file
+
+	read -e -p "Name of the function file: " func_file
+fi
+
+if [[ $# -eq 0 ]]; then
+	gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $test_file $func_file -o $(echo "$func_file" | rev | cut -d '.' -f 2- | rev)
+elif [[ $# -gt 0 ]]; then
+	read -e -p "Ouput's name?: " output
+	gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $file_names -o $output
+fi
+
