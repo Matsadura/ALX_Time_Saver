@@ -31,6 +31,7 @@ if [ -f /etc/apt/sources.list ]; then
 	yes | pip install requests
 	yes | pip install prompt_toolkit
 	yes | pip install bs4
+	yes | pip install colorama
 else
 	error "Unknown distribution, Exiting gracefully."
 	info "This script is dedicated to ALX Sandboxes and Ubuntu systems only."
