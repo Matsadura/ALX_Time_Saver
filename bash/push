@@ -27,7 +27,7 @@ if [[ ! $force_flag == "-f"  ]]; then
 
 	if (( "${#ignored_files[@]}" > 0 )); then
 		echo -e "\e[31m$error\e[0m The following files are ignored in .gitignore: ${ignored_files[*]}"
-		echo -e "\e[36m$notice\e[0m Use '\e[33m$0 -f\e[0m' to force push the ignored files"
+		echo -e "\e[36m$notice\e[0m Use '\e[33mpush -f\e[0m' to force push the ignored files"
 		exit 0
 	fi
 fi
