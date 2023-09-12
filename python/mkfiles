@@ -1,0 +1,132 @@
+#!/usr/bin/python3
+
+import os
+import re
+import html
+import requests
+from getpass import getpass
+from bs4 import BeautifulSoup
+from colorama import Fore, Style
+from prompt_toolkit import prompt
+from prompt_toolkit.document import Document
+from prompt_toolkit.completion import Completer, Completion, PathCompleter
+
+# Custom Tilde Expantion
+
+class TildeExpandingPathCompleter(Completer):
+    def get_completions(self, document, complete_event):
+        expanded_text = os.path.expanduser(document.text_before_cursor)
+        for completion in PathCompleter().get_completions(Document(expanded_text, len(expanded_text)), complete_event):
+            yield Completion(completion.text, start_position=document.cursor_position - len(document.text_before_cursor))
+
+
+# Login info
+email = prompt('Enter your intranet email: ')
+password = getpass('Enter your password: ')
+
+session = requests.Session()
+
+
+login_page_response = session.get('https://intranet.alxswe.com/auth/sign_in')
+
+# HTML content and authenticity_token
+soup = BeautifulSoup(login_page_response.text, 'html.parser')
+authenticity_token = soup.find('input', attrs={'name': 'authenticity_token'})['value']
+
+login_data = {
+    'user[email]': email,
+    'user[password]': password,
+    'authenticity_token': authenticity_token
+}
+
+login_url = 'https://intranet.alxswe.com/auth/sign_in'
+
+response = session.post(login_url, data=login_data)
+
+number = input('Please enter the project number: ')
+url = f'https://intranet.alxswe.com/projects/{number}'
+response = session.get(url)
+
+
+# Check if login was successful
+if "Tables" in response.text:
+    print(f"{Fore.GREEN}Login successful, have fun !")
+    html_content = response.text
+else:
+    print(f"{Fore.RED}Login failed, make sure your credentials and the project link are correct.")
+    exit(1)
+
+# Test Files Maker
+
+test_files = re.findall(r'<pre><code>(.*?)</code></pre>', html_content, re.DOTALL)
+    
+# Path to destination 
+
+directory = prompt('Please provide the save directory: ', completer=TildeExpandingPathCompleter())
+directory = os.path.expanduser(directory)
+os.chdir(directory)
+
+created_files = []
+missing_files = []
+for code in test_files:
+        include_bracket = re.findall(r'(#include.*})', code, re.DOTALL | re.MULTILINE)
+        main_name = re.search(r'(\d+)-main\.c', code)
+        if main_name:
+            main_name = main_name.group(1) + "-main.c"
+        else:
+            continue
+
+        for part in include_bracket:
+            output_file = main_name
+            if not os.path.exists(output_file):
+             with open(output_file, "w") as file:
+                file.write(html.unescape(part))
+
+                created_files.append(output_file)
+            else:
+                missing_files.append(output_file)
+
+
+# Files Maker
+
+putchar = 'https://raw.githubusercontent.com/alx-tools/_putchar.c/master/_putchar.c'
+putchar_r = requests.get(putchar, allow_redirects=True)
+with open('_putchar.c', 'wb') as file:
+    file.write(putchar_r.content)
+
+task_files = re.findall(r'File: <code>(.*?)</code>', html_content)
+if len(task_files) == 0:
+    print(f"{Fore.RED}Error:{Style.RESET_ALL} No files were found in this project.")
+else:
+    for task in task_files:
+            output_file = task
+            if not os.path.exists(output_file):
+             with open(output_file, "w") as file:
+                pass
+                created_files.append(output_file)
+            else:
+                missing_files.append(output_file)
+
+if created_files:
+     print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The files {', '.join(created_files)} have been created in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
+if missing_files:
+    print(f"{Fore.RED}Error:{Style.RESET_ALL} The following files already exist: {', '.join(missing_files)}")
+
+
+# Header Maker
+
+prototypes = re.findall(r'Prototype: <code>(.*?)</code>', html_content)
+prototypes.append('int _putchar(char c);')
+
+if len(prototypes) == 0:
+    print("{Fore.RED}Error:{Style.RESET_ALL} No prototypes found in this project.")
+else:
+    output_file = "main.h"
+    if os.path.exists(output_file):
+        print(f"{Fore.RED}Error:{Style.RESET_ALL} The file '{output_file}' already exists.")
+    else:
+        with open(output_file, "a") as file:
+            for prototype in prototypes:
+                file.write(prototype + "\n")
+        print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The prototypes have been appended to '{output_file}' in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
+

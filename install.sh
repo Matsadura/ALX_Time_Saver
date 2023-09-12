@@ -1,65 +1,46 @@
 #!/bin/bash
 
-SCRIPTS_PATH=~/.scripts
+SCRIPTS_PATH=/usr/bin
 
-# Creating scripts directory
-mkdir -p $SCRIPTS_PATH
+# Removing existing configuration from old version of ALX-TSaver
+declare -a patterns=("alias mkheader=" "alias mkscript=" "alias cgcc=" "alias push=" "alias mkfiles=")
 
-## TODO: Fix paths (in case of script execited from other directories)
-cp ./bash/* $SCRIPTS_PATH
-cp ./python/* $SCRIPTS_PATH
+for pattern in "${patterns[@]}"; do
+	grep -v "$pattern" ~/.bashrc > tmp_TSaver
+	mv tmp_TSaver ~/.bashrc
+done
 
-# Adding vim configuration
+
+# Configuring functionalities
+sudo cp ./bash/* $SCRIPTS_PATH
+sudo cp ./python/* $SCRIPTS_PATH
+
+# Configuring VIM
 cp -f vimrc ~/.vimrc
 
 # Importing logger
-source $SCRIPTS_PATH/logger
+source $SCRIPTS_PATH/TSaver_logger
 
+# Installing All Dependencies
 info "Installing dependencies..."
-# Installing All dependencies
 if [ -f /etc/apt/sources.list ]; then
 	info "Debian-based system Detected."
 
-	# Use apt for package management
 	sudo apt-get update
 	sudo apt-get install -y python3 python3-pip curl
 	yes | pip install requests
 	yes | pip install prompt_toolkit
+	yes | pip install bs4
+	yes | pip install colorama
 else
 	error "Unknown distribution, Exiting gracefully."
-	info "This script is dedicated to ALX Sandboxes only."
+	info "This script is dedicated to ALX Sandboxes and Ubuntu systems only."
 	exit 1
 fi
 
 success "Dependencies installed."
 
-# Appending aliases in Bashrc
-# Check for 'cl' alias
-if ! grep -q "alias cl=" ~/.bashrc; then
-    echo 'alias cl="clear"' >> ~/.bashrc
-fi
-
-# Check for 'mkscript' alias
-if ! grep -q "alias mkscript=" ~/.bashrc; then
-    echo 'alias mkscript=". ~/.scripts/mk"' >> ~/.bashrc
-fi
-
-# Check for 'cgcc' alias
-if ! grep -q "alias cgcc=" ~/.bashrc; then
-    echo 'alias cgcc=". ~/.scripts/gcc"' >> ~/.bashrc
-fi
-
-# Check for 'push' alias
-if ! grep -q "alias push=" ~/.bashrc; then
-    echo 'alias push=". ~/.scripts/push"' >> ~/.bashrc
-fi
-
-# Check for 'mkfiles' alias
-if ! grep -q "alias mkfiles=" ~/.bashrc; then
-    echo 'alias mkfiles="python3 ~/.scripts/files_maker.py"' >> ~/.bashrc
-fi
-
-# Installing TrailerTrash vim plugin
+# Installing TrailerTrash VIM Plugin
 vim_config_file=~/.vimrc
 
 if ! [ -f ~/.vim/autoload/plug.vim ]; then
@@ -71,4 +52,30 @@ fi
 vim -u "$vim_config_file" +PlugInstall +qall
 
 
+# Short Tutorial / Manual
+clear
+
+art1='
+   _____  .____     ____  ___
+  /  _  \ |    |    \   \/  /
+ /  /_\  \|    |     \     /
+/    |    \    |___  /     \
+\____|__  /_______ \/___/\  \
+        \/        \/      \_/
+'
+art2='
+___________.__                   _________
+\__    ___/|__| _____   ____    /   _____/____ ___  __ ___________
+  |    |   |  |/     \_/ __ \   \_____  \\__  \\  \/ // __ \_  __ \
+  |    |   |  |  Y Y  \  ___/   /        \/ __ \\   /\  ___/|  | \/
+  |____|   |__|__|_|  /\___  > /_______  (____  /\_/  \___  >__|
+                    \/     \/          \/     \/          \/
+'
+
+echo "$art1"
+echo "$art2"
+
+printf "\n\nTime is money, save it with \e[1;32mALX Time Saver\e[0m!\n\n\e[32mcompile\e[0m : Compiles your C files\n\e[32mpush\e[0m : pushes the specified content to your github\n\e[32mmkfiles\e[0m : Extracts all the necessary project files, main.h and all main.c files directly from the intranet\n\e[32mmkscript\e[0m : saves you time setting up a Python or Bash script\n\e[1;33mpython3 read_maker.py\e[0m : First configure the file then use it to make interactive README directly extracted from your github\n\n"
+
+echo -e "\e[31m#DoHardThings\e[0m"
 

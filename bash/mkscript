@@ -1,0 +1,74 @@
+#!/bin/bash
+state=0
+flag=""
+if [[ $1 == "-p" ]]; then
+	flag="-p"
+elif [[ $1 == "-b" ]]; then
+	flag="-b"
+fi
+
+
+if [[ $# -eq 1 ]] && [[ $1 != "-p" ]] && [[ $1 != "-b" ]]; then
+	name=$1
+	state=1
+	if [[ $flag == "" ]]; then
+		while [[ $flag != "-b" ]] && [[ $flag != "-p" ]]; do
+			printf "\e[1;34mBash\e[0m (enter \e[1;34mb\e[0m) or \e[1;33mPython\e[0m (enter \e[1;33mp\e[0m) ?: "
+			read flag2
+			if [[ $flag2 == "b" ]]; then
+				flag="-b"
+			elif [[ $flag2 == "p" ]]; then
+				flag="-p"
+			else
+				echo -e "\e[31mInvalid input.\e[0m Please enter \e[1;34m'b'\e[0m for \e[1    ;34mBash\e[0m or \e[33m'p'\e[0m for \e[33mPython\e[0m."
+			fi
+		done
+	fi
+elif [[ $# -eq 2 ]]; then
+	if [[ $1 == "-p" ]] || [[ $1 == "-b" ]]; then
+		flag=$1
+		name=$2
+		state=2
+	elif [[ $2 == "-p" ]] || [[ $2 == "-b" ]]; then
+		flag=$2
+		name=$1
+		state=3
+	else
+		echo -e "\e[31mError:\e[0m Too many names, one file at a time."
+		exit 1
+	fi
+elif [[ $# -gt 2 ]] & [[ $1 != $flag ]]; then
+	echo -e "\e[31mError:\e[0m Too many arguments, one file at a time."
+	exit 1
+elif [[ $# -eq 0 ]] && [[ $state == 0 ]]; then
+	while [[ $flag != "-b" ]] && [[ $flag != "-p" ]]; do
+		printf "\e[1;34mBash\e[0m (enter \e[1;34mb\e[0m) or \e[1;33mPython\e[0m (enter \e[1;33mp\e[0m) ?: "
+		read flag2
+		if [[ $flag2 == "b" ]]; then
+			flag="-b"
+		elif [[ $flag2 == "p" ]]; then
+			flag="-p"
+		else
+			echo -e "\e[31mInvalid input.\e[0m Please enter \e[1;34m'b'\e[0m for \e[1;34mBash\e[0m or \e[33m'p'\e[0m for \e[33mPython\e[0m."
+		fi
+	done
+fi
+
+if [[ -z "$name" ]]; then
+	read -e -p "Enter the name of the new script: " name
+fi
+
+if [[ -e "$name" ]]; then
+	echo -e "\e[31mError\e[0m: File already exists. Please choose a different name."
+	exit 0
+fi
+
+if [[ $flag == "-p" ]]; then
+	echo '#!/usr/bin/python3' > $name
+elif [[ $flag == "-b" ]]; then
+	echo '#!/bin/bash' > $name
+fi
+
+chmod u+x $name
+
+vim $name
