@@ -74,8 +74,8 @@ Nothing that I know of yet.
      ```
      cd ALX_Time_Saver
      ```
-=======
-3. Run the installation script  
+
+3. Run the installation script
      ```
      ./install.sh
      ```
