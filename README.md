@@ -29,7 +29,7 @@ Contibutions can vary from fixing typos to adding new features.
 3. [Readme maker](#readme-maker)
      * Automatically puts all your project files in a table with interactive names
 
-4. [AIO Header / Test Files / Project Files Maker](#all-in-one-header-tests-files-maker)
+4. [AIO Header / Test Files / Project Files Maker](#all-in-one-maker)
      * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file.
      * Creates all the project files.
      * Extracts all the test files aka "x-main.c".
@@ -104,7 +104,7 @@ Run the ``compile`` command, select the test file if it exists, the code to comp
 |---|----|
 |compile|Interactive mode|
 |compile file_1 file_2...|One line Command|
-### mkscript  command
+### mkscript command
 Run the ``mkscript``, type the name of your script, it'll automatically open it in vim with ``#!/bin/bash`` or ``#!/usr/bin/python3`` already written on top, do your thing and after exiting the file will already be given the executable permission.
 
 ![mkscript](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/ca82fd75-dabc-4590-9e83-0f7d100dc0f5)
@@ -162,7 +162,7 @@ cd to the ALX-Time-Saver and launch the script with ``./read_maker.py``, then en
 
 If you click on a file it'll open it (in github of course).
 
-### All in one HEADER / TESTS / FILES Maker
+### All in one Maker
 
 Run the script with ``mkfiles``, the new files will be in your location of choice.
 
