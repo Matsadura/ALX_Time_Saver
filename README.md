@@ -121,7 +121,7 @@ Run the ``mkscript``, type the name of your script, it'll automatically open it 
 |mkscript -p|Semi interactive mode for python script|
 |mkscript -b|Semi interactive mode for bash script|
 |mkscript -p file_name|One Line Command for python script|
-|mkscript file_name -b|One Line Command for python script|
+|mkscript file_name -p|One Line Command for python script|
 |mkscript -b file_name|One Line Command for bash script|
 |mkscript file_name -b|One Line Command for bash script|
 
