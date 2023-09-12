@@ -62,21 +62,25 @@ Nothing that I know of yet.
  * Option to create directory if not found for "mkfiles"
  * Backup your original vimrc and restore it upon unistall
 ```
-## Installation 
-
-Clone the repository : 
  
-``` 
-git clone https://github.com/Matsadura/ALX_Time_Saver/ 
-```
+## Installation in 3 simple steps 😃
 
-Then go to the cloned directory and run the installation script :
+1. Clone the repository  
+     ```
+     git clone https://github.com/Matsadura/ALX_Time_Saver/ 
+     ```
 
-```
-./install.sh 
-```
+2. Go to the cloned directory   
+     ```
+     cd ALX_Time_Saver
+     ```
+=======
+3. Run the installation script  
+     ```
+     ./install.sh
+     ```
 
-Let it do it's magic and you're all set !
+Let it do it's magic and you're all set 🚀
 
 __NOTE : If you used the previous version you must restart your system to avoid conflict with this version__ 
 
