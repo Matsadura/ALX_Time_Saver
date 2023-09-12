@@ -8,19 +8,19 @@ __IMPORTANT REMARQUE : Learn how to do these operations manually before you star
 
 If you like the project please give it a star, and feel free to contribute.
 
-To contribute : 
+__To contribute__ : 
 Fork the project, make your changes with proper documentation, make sure they work, make a pull request.
 
 Contibutions can vary from fixing typos to adding new features.
 
 ## Features
-1. Custom aliases for :
-     * Pushing
+1. Comfortable :
+     * [Pushing](#push-command )
      * Compiling
-     * Making a bash script
+     * Making a bash or python script
 
 2. Custom Vim Configuration :
-     * Lines numbers on the left side 
+     * Line numbers on the left side 
      * Run betty from vim
      * Compile the current file opened in vim from vim ( mind blowing I know )
      * Remove all trailing white space with the press of a button
@@ -33,39 +33,80 @@ Contibutions can vary from fixing typos to adding new features.
      * Extracts all the functions prototypes of a certain project and appends them in a "main.h" file.
      * Creates all the project files.
      * Extracts all the test files aka "x-main.c".
- 
+       
+## Changelogs
+__Added__
+```
+```
+
+__Fixed__
+```
+```
+
+__Know Issues__
+```
+```
+
+ __To Do__
+ ```
+```
 ## Installation 
 
 Clone the repository : 
  
-``` git clone https://github.com/Matsadura/ALX_Time_Saver/ ```
+``` 
+git clone https://github.com/Matsadura/ALX_Time_Saver/ 
+```
 
 Then go to the cloned directory and run the installation script :
 
-``` ./install.sh ```
+```
+./install.sh 
+```
 
 Let it do it's magic and you're all set !
 
-__NOTE : For the aliases to take effect you must restart your system__ 
+__NOTE : If you used the previous version you must restart your system to avoid conflict with this version__ 
 
 ## Features 
-### The "push" command 
+### push command 
+[Link to My Third-Level Header](#the-"push"-command )
 Run the ``push`` command, select which file(s) to push and add your commit message.
 
 ![push](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1788a9aa-ba23-4858-a14c-23a2c374c477)
 
 
-### The "cgcc" command
-Run the ``cgcc`` command, select the test file if it exists, the code to compile and you're all set, the purpose of this is to avoid typing all the flags everytime.
+| Possible Syntax | Description |
+|-----------------|---------------|
+|push|you can use this for interactive mode|
+|push -f|Force add ignored files in interactive mode|
+|push file_name1 file_name_2...|One line command|
+|push -f file_name1 file_name2...|Force push one line command|
 
-![cgcc](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1b42410f-4053-45b1-a251-267f1cefbce6)
+### compile" command
+Run the ``compile`` command, select the test file if it exists, the code to compile and you're all set, the purpose of this is to avoid typing all the flags everytime.
+
+![compile](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/65957f8a-ea1d-449a-99a3-56b4821691b7)
 
 
-### The "mkscript" command
-Run the ``mkscript``, type the name of your script, it'll automatically open it in vim with ``#!/bin/bash`` already written on top, do your thing and after exiting the file will already be given the executable permission.
+|Syntax|Description|
+|---|----|
+|compile|Interactive mode|
+|compile file_1 file_2...|One line Command|
+### mkscript  command
+Run the ``mkscript``, type the name of your script, it'll automatically open it in vim with ``#!/bin/bash`` or ``#!/usr/bin/python3`` already written on top, do your thing and after exiting the file will already be given the executable permission.
 
-![mkscript](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/b9961392-8bdd-4025-a020-d3f1fdcdc68b)
+![mkscript](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/ca82fd75-dabc-4590-9e83-0f7d100dc0f5)
 
+
+|Syntax|Description|
+|---|----|
+|mkscript|Interactive mode|
+|mkscript file_name|Semi interactive mode|
+|mkscript -p|Semi interactive mode for python script|
+|mkscript -b|Semi interactive mode for bash script|
+|mkscript -p file_name|One Line Command for python script|
+|mkscript -b file_name|One Line Command for bash script|
 
 ### Vim Configs
 
@@ -75,7 +116,7 @@ The numbers are useful to jump from line to line without actually counting how m
 #### Compiling with F5
 In order to compile the current file by pressing F5 the following is required :
 the file must be in this format "number"-"name".c for exemple ``0-putchar.c``, and the test file which is usually "number"-main.c exemple "0-main.c" .
-If the test file doesn't exist use the ``cgcc`` command instead.
+If the test file doesn't exist use the ``compile`` command instead.
 
 ![VIM F5 Showcase](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/46ecc108-9288-4f7f-a5b2-b5302f251348)
 
@@ -110,10 +151,10 @@ launch the script with ``python3 read_maker.py``, then enter the name of subdire
 If you click on a file it'll open it (in github of course).
 
 ### All in one HEADER / TESTS / FILES Maker
-This needs more work but it does the job for now, in order to take advantage of it you must download the page of the project by saving it as ``.html``, then : 
-* Run the script with ``mkfiles``, the new files will be in your location of choice.
 
-Follow these steps : 
+Run the script with ``mkfiles``, the new files will be in your location of choice.
+
+Demonstration : 
 
 1 . Save the page :
 
