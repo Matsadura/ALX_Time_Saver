@@ -86,7 +86,6 @@ __NOTE : If you used the previous version you must restart your system to avoid 
 
 ## Features 
 ### push command 
-[Link to My Third-Level Header](#the-"push"-command )
 Run the ``push`` command, select which file(s) to push and add your commit message.
 
 ![push](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1788a9aa-ba23-4858-a14c-23a2c374c477)
