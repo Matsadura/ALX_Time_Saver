@@ -161,7 +161,7 @@ To use this script first you must configure it, replace with your info :
 
 ![readme_config](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/15fec8b3-bee9-4e99-9de6-21afea2d5720)
 
-cd to the ALX-Time-Saver and launch the script with ``./read_maker.py``, then enter the name of repo, subdirectory of the project, note that you must do this connects to your github so make sure you have everything you need pushed, the output should be in markdown copy it to your ``README.md`` and you're all set.
+cd to the ALX-Time-Saver and launch the script with ``./read_maker.py``, then enter the name of repo, subdirectory of the project, note this connects to your github so make sure you have everything you need pushed, the output should be in markdown copy it to your ``README.md`` and you're all set.
 
 ![readmaker_demo](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/6414f3c2-4133-42fb-add0-2439154f1071)
 
