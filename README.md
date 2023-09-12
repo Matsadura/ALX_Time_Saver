@@ -60,6 +60,7 @@ Nothing that I know of yet.
  * One liner commit flag for "push"
  * One liner output name flag for "compile"
  * Option to create directory if not found for "mkfiles"
+ * Backup your original vimrc and restore it upon unistall
 ```
 ## Installation 
 
