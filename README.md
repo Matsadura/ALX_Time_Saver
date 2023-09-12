@@ -88,7 +88,7 @@ Run the ``push`` command, select which file(s) to push and add your commit messa
 ![push](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1788a9aa-ba23-4858-a14c-23a2c374c477)
 
 
-| Possible Syntax | Description |
+| Syntax | Description |
 |-----------------|---------------|
 |push|you can use this for interactive mode|
 |push -f|Force add ignored files in interactive mode|
