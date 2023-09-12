@@ -145,9 +145,7 @@ Check out this demonstration.
 #### Remove Whitespace with F4
 Whitespace is highlighted in red.
 
-![TrailierTrash](https://github.com/Matsadura/ALX_Time_Saver/assets/132
-
-571698/474b5690-1ace-412c-8665-7ed248d5a2a0)
+![TrailierTrash](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/474b5690-1ace-412c-8665-7ed248d5a2a0)
 
 ### Readme Maker
 To use this script, first configure it by replacing the info as shown:
