@@ -50,6 +50,7 @@ __Fixed__
 __Known Issues__
 ```
 1 . mkfiles :
+   * Header file's name is always "main.h" even for project that require a differnt one
    * Combines all file names into one for tasks that require multiple files
    * All prototypes are appended to main.h even if tasks require them to be in a different header file
 2 . push :
