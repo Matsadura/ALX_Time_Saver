@@ -36,7 +36,7 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 ## Changelogs
 __Added__
 ```
-* ALX Time Saver v2.00
+* ALX Time Saver v2.00 (12-09-2023)
 * Intranet login via mkfiles
 * One-liner for "push," "compile," and "mkscript"
 * Auto completion in read_maker
