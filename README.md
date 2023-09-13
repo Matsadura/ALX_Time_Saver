@@ -9,7 +9,7 @@ If you love our project, show some love with a star and, if you're feeling adven
 **To contribute:**
 Fork the project, make changes with proper documentation, ensure they work, and submit a pull request.
 
-🙏 Contributions can vary from fixing typos to adding exciting new features. 🙏
+🙏 Contributions can vary from fixing typos and issues to adding exciting new features. 🙏
 
 ## Key Features
 1. **Comfortable:**
