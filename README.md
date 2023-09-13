@@ -62,6 +62,7 @@ __Known Issues__
 __To Do__
 ```
 * Fix known issues
+* Append to VIMRC instead of overwrite
 * Uninstall script
 * One-liner commit flag for "push"
 * One-liner output name flag for "compile"
