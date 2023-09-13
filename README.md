@@ -49,11 +49,18 @@ __Fixed__
 
 __Known Issues__
 ```
-None reported yet.
+1 . mkfiles :
+   * Combines all file names into one for tasks that require multiple files
+   * All prototypes are appended to main.h even if tasks require them to be in a different header file
+2 . push :
+   * git check-ignore command might be unstable (need to do more testing to confirm this)
+3 . compile :
+   * it requires _putchar.c to be present in the current directory even when it's not needed
 ```
 
 __To Do__
 ```
+* Fix known issues
 * Uninstall script
 * One-liner commit flag for "push"
 * One-liner output name flag for "compile"
