@@ -36,10 +36,13 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 ## Changelogs
 __Added__
 ```
-* ALX Time Saver v2.00 (12-09-2023)
-* Intranet login via mkfiles
-* One-liner for "push," "compile," and "mkscript"
-* Auto completion in read_maker
+* ALX Time Saver v2.01 (20-09-2023)
+* Unistall script
+* Backup original vimrc file
+```
+__Changed__
+```
+* Append to VIMRC instead of overwrite it
 ```
 
 __Fixed__
@@ -62,12 +65,9 @@ __Known Issues__
 __To Do__
 ```
 * Fix known issues
-* Append to VIMRC instead of overwrite
-* Uninstall script
 * One-liner commit flag for "push"
 * One-liner output name flag for "compile"
 * Option to create a directory if not found for "mkfiles"
-* Backup your original vimrc and restore it upon uninstallation
 ```
 
 ## Installation in 3 Simple Steps 😃
@@ -87,6 +87,11 @@ __To Do__
    ```
 
 Let it work its magic, and you're all set! 🚀
+
+If you want to unistall :
+```
+./unistall.sh
+```
 
 **NOTE:** If you've used the previous version, please restart your system to avoid conflicts with this version.
 
