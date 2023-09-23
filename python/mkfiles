@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-
 import os
 import re
 import html
-import requests
 from getpass import getpass
+
+import requests
 from bs4 import BeautifulSoup
 from colorama import Fore, Style
 from prompt_toolkit import prompt
@@ -12,7 +12,6 @@ from prompt_toolkit.document import Document
 from prompt_toolkit.completion import Completer, Completion, PathCompleter
 
 # Custom Tilde Expantion
-
 class TildeExpandingPathCompleter(Completer):
     def get_completions(self, document, complete_event):
         expanded_text = os.path.expanduser(document.text_before_cursor)
@@ -50,22 +49,22 @@ response = session.get(url)
 
 # Check if login was successful
 if "Tables" in response.text:
-    print(f"{Fore.GREEN}Login successful, have fun !")
+    print(f"{Fore.GREEN}Login successful, Do Hard Things !")
     html_content = response.text
 else:
-    print(f"{Fore.RED}Login failed, make sure your credentials and the project link are correct.")
+    print(f"{Fore.RED}Login failed, make sure your credentials and the project number are correct.")
     exit(1)
+
+
+directory = prompt('Please provide the save directory: ', completer=TildeExpandingPathCompleter())
+directory = os.path.expanduser(directory)
+os.makedirs(directory,exist_ok=True)
+os.chdir(directory)
+
 
 # Test Files Maker
 
 test_files = re.findall(r'<pre><code>(.*?)</code></pre>', html_content, re.DOTALL)
-    
-# Path to destination 
-
-directory = prompt('Please provide the save directory: ', completer=TildeExpandingPathCompleter())
-directory = os.path.expanduser(directory)
-os.chdir(directory)
-
 created_files = []
 missing_files = []
 for code in test_files:
@@ -99,10 +98,12 @@ if len(task_files) == 0:
     print(f"{Fore.RED}Error:{Style.RESET_ALL} No files were found in this project.")
 else:
     for task in task_files:
-            output_file = task
+        files = task.split(',')
+        for file_name in files:
+            output_file = file_name.strip()
             if not os.path.exists(output_file):
-             with open(output_file, "w") as file:
-                pass
+                with open(output_file, "w") as file:
+                    pass
                 created_files.append(output_file)
             else:
                 missing_files.append(output_file)
@@ -115,6 +116,10 @@ if missing_files:
 
 # Header Maker
 
+header_pattern = re.findall(r'<li>The prototypes of all your functions and the prototype of the function <code>_putchar</code> should be included in your header file called <code>(.*?)</code></li>', html_content)
+include_guard_pattern = re.findall(r'<li>All your header files should be include guarded</li>', html_content)
+data_structure_pattern = re.findall(r'<p>Please use this data structure for this project:</p>\n\n<pre><code>(.*?)</code></pre>', html_content, re.DOTALL)
+
 prototypes = re.findall(r'Prototype: <code>(.*?)</code>', html_content)
 prototypes.append('int _putchar(char c);')
 
@@ -122,11 +127,19 @@ if len(prototypes) == 0:
     print("{Fore.RED}Error:{Style.RESET_ALL} No prototypes found in this project.")
 else:
     output_file = "main.h"
+    if header_pattern:
+        output_file = header_pattern[0]
     if os.path.exists(output_file):
         print(f"{Fore.RED}Error:{Style.RESET_ALL} The file '{output_file}' already exists.")
     else:
         with open(output_file, "a") as file:
+            if include_guard_pattern:
+                guard_name = os.path.splitext(output_file)[0].upper().replace('.', '_')
+                file.write(f"#ifndef {guard_name}\n#define {guard_name}\n")
+            if data_structure_pattern:
+                file.write(data_structure_pattern[0] + "\n")
             for prototype in prototypes:
                 file.write(prototype + "\n")
+            if include_guard_pattern:
+                file.write(f"#endif // {guard_name}")
         print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The prototypes have been appended to '{output_file}' in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
-

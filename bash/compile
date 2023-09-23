@@ -1,19 +1,40 @@
 #!/bin/bash
+contains_putchar_0=0
+contains_putchar_1=0
 
 if [[ $# -gt 0 ]]; then
 	file_names="$@"
 fi
 
+for file_name in $file_names
+do
+	if grep -q "_putchar" $file_name; then
+		contains_putchar_0=1
+		break
+	fi
+done
+
 if [[ $# -eq 0 ]]; then
 	read -e -p "Name of the test file: " test_file
-
 	read -e -p "Name of the function file: " func_file
+
+	if grep -q "_putchar" $func_file; then
+		contains_putchar_1=1
+	fi
 fi
 
 if [[ $# -eq 0 ]]; then
-	gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $test_file $func_file -o $(echo "$func_file" | rev | cut -d '.' -f 2- | rev)
+	if [[ $contains_putchar_1 -eq 1 ]]; then
+		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $test_file $func_file -o $(echo "$func_file" | rev | cut -d '.' -f 2- | rev)
+	else
+		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 $test_file $func_file -o $(echo "$func_file" | rev | cut -d '.' -f 2-     | rev)
+	fi
 elif [[ $# -gt 0 ]]; then
-	read -e -p "Ouput's name?: " output
-	gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $file_names -o $output
+	read -e -p "Output's name?: " output
+	if [[ $contains_putchar_0 -eq 1 ]]; then
+		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $file_names -o $output
+	else
+		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 $file_names -o $output
+	fi
 fi
 

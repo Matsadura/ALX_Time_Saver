@@ -28,17 +28,16 @@ Fork the project, make changes with proper documentation, ensure they work, and 
    - Automatically Organizes Project Files in an Interactive Table
 
 4. [All-in-One Toolkit](#all-in-one-maker)
-   - Extracts all function prototypes for a project and appends them to a "main.h" file.
+   - Extracts all function prototypes for a project and appends them to the header file.
    - Generates project files with ease.
    - Retrieves test files (x-main.c).
-   - Downloads _putchar.c and updates main.h with its prototype.
+   - Downloads _putchar.c and updates header file with its prototype.
 
 ## Changelogs
 __Added__
 ```
-* ALX Time Saver v2.01 (20-09-2023)
-* Unistall script
-* Backup original vimrc file
+* ALX Time Saver v2.02 (23-09-2023)
+* Create directory and it's partent directories if not found when using mkfiles
 ```
 __Changed__
 ```
@@ -47,19 +46,19 @@ __Changed__
 
 __Fixed__
 ```
--
-```
-
-__Known Issues__
-```
 1 . mkfiles :
    * Header file's name is always "main.h" even for project that require a differnt one
    * Combines all file names into one for tasks that require multiple files
    * All prototypes are appended to main.h even if tasks require them to be in a different header file
-2 . push :
-   * git check-ignore command might be unstable (need to do more testing to confirm this)
-3 . compile :
+2 . compile :
    * it requires _putchar.c to be present in the current directory even when it's not needed
+
+```
+
+__Known Issues__
+```
+1 . push :
+   * git check-ignore command might be unstable (need to do more testing to confirm this)
 ```
 
 __To Do__
@@ -67,7 +66,6 @@ __To Do__
 * Fix known issues
 * One-liner commit flag for "push"
 * One-liner output name flag for "compile"
-* Option to create a directory if not found for "mkfiles"
 ```
 
 ## Installation in 3 Simple Steps 😃
