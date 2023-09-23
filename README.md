@@ -38,6 +38,8 @@ __Added__
 ```
 * ALX Time Saver v2.02 (23-09-2023)
 * Create directory and it's partent directories if not found when using mkfiles
+* The header file is guarded when required
+* Structures are added to the header file when required
 ```
 __Changed__
 ```
