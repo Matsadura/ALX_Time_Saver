@@ -22,6 +22,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'csexton/trailertrash.vim'
 call plug#end()
 
+" Map a key to run Betty style checker
+map <F2> :!betty %<CR>
 
 " Map a key to run TrailerTrash
 nnoremap <F4> :TrailerTrim<CR>
