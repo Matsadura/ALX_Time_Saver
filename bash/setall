@@ -1,0 +1,49 @@
+#!/bin/bash
+check_files_exist()
+{
+	for arg in "$@"; do
+		if [ -e "$arg" ]; then
+			files+=("$arg")
+		else
+			missing+=("$arg")
+		fi
+	done
+
+	if [ ${#missing[@]} -ne 0 ]; then
+		for miss in ${missing[@]}; do
+			echo -e "\e[31m'$miss'\e[0m is missing"
+		done
+		exit 1
+	fi
+}
+
+if [[ "$#" -eq 1 ]]; then
+	echo -e "\e[35mNotice\e[0m : First argument is reserved for the main function, add the test files and header file as extra arguments to proceed."
+	exit 1
+fi
+
+check_files_exist "$@"
+
+function_dir="${files[0]%.*}"
+
+mkdir -p test/$function_dir
+
+shift
+
+i=0
+for file in "${files[@]:1}"; do
+	if [[ $file == *.h ]]; then
+		cp "$file" test/$function_dir
+		continue
+	fi
+	new_file="$i-main.c"
+	cp "$file" test/$function_dir/$new_file
+	i=$((i+1))
+done
+
+if [[ $(ls test/$function_dir/ | wc -l)  -eq 0 ]]; then
+	echo -e "\e[31mSomething went wrong, recheck your files.\e[0m"
+else
+	echo -e "\e[32mTest Suite created successfully !"
+	echo -e "Run the 'testall' command to start testing.\e[0m"
+fi

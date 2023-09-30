@@ -32,8 +32,7 @@ if [[ ! $force_flag == "-f"  ]]; then
 	fi
 fi
 
-printf "what's your commit? : "
-read commit_msg
+read -e -p "What's your commit? : " commit_msg
 
 
 for file_name in "${file_names[@]}"; do

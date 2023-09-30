@@ -1,0 +1,52 @@
+#!/bin/bash
+
+modified_files=""
+
+has_changes() {
+	local file="$1"
+	local before_md5sum=$(md5sum "$file" | cut -d ' ' -f 1)
+
+	vim -E -s "$file" <<EOF
+    :%norm! ggVG=
+    :wq
+EOF
+
+vim -E -s "$file" <<EOF
+    :%s/\s\+$//e
+    :wq
+EOF
+
+local after_md5sum=$(md5sum "$file" | cut -d ' ' -f 1)
+
+if [ "$before_md5sum" != "$after_md5sum" ]; then
+	return 0
+else
+	return 1
+fi
+}
+
+if [[ $# -eq 0 ]]; then
+	set -- "$(pwd)"
+fi
+
+for directory in "$@"; do
+	if [ ! -d "$directory" ]; then
+		echo "Directory not found: $directory"
+		exit 1
+	fi
+	for file in "$directory"/*.c "$directory"/*.h; do
+		if [ -f "$file" ]; then
+			if has_changes "$file"; then
+				modified_files="$modified_files $file"
+			fi
+		fi
+	done
+done
+
+
+if [ -n "$modified_files" ]; then
+	echo "Fixed files:"
+	echo -e "\e[32m$modified_files\e[0m" | tr ' ' '\n'
+else
+	echo "No files has been fixed, all good."
+fi

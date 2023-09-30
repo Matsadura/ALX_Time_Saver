@@ -1,0 +1,71 @@
+#!/bin/bash
+check_files_exist()
+{
+	for arg in "$@"; do
+		if [ -e "$arg" ]; then
+			functions+=("$arg")
+		else
+			missing+=("$arg")
+		fi
+	done
+
+	if [ ${#missing[@]} -ne 0 ]; then
+		for file in ${missing[@]}; do
+			echo -e "\e[31m'$file'\e[0m is missing"
+		done
+		exit 1
+	fi
+}
+
+compile_and_run_tests()
+{
+	while [ -e test/$function_dir/$file_number-main.c ]; do
+		echo "Test n°$file_number :" >> out_$function_dir.txt
+		echo "~~~~~~~~~:" >> out_$function_dir.txt
+		append_newline_to_output
+		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 ${functions[@]} test/$function_dir/$file_number-main.c 2>> out_$function_dir.txt
+		./a.out 2>&1 >> out_$function_dir.txt
+		append_newline_to_output
+		echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n" >> out_$function_dir.txt
+		((file_number++))
+	done
+}
+
+append_newline_to_output()
+{
+	echo "" >> out_$function_dir.txt
+}
+
+header_file=()
+test_files=()
+missing=()
+file_number=0
+file_pattern='*[0-9]*-main.c'
+
+check_files_exist "$@"
+
+function_dir="${functions[0]%.*}"
+
+test_file_count=$(find test/$function_dir -name "$file_pattern" | wc -l)
+
+if [[ $test_file_count -lt 0 ]]; then
+	echo "Test files could not be found"
+	exit 1
+fi
+
+test_files=$(find test/$function_dir -name "*-main.c" | sort -n)
+
+header_file=$(find . -maxdepth 1 -type f -name "*.h")
+if [ -z $header_file ]; then
+	echo "Header file missing"
+	exit 1
+fi
+
+touch out_$function_dir.txt
+echo -e "Test Suite for '${functions[@]}' :" > out_$function_dir.txt
+append_newline_to_output
+
+compile_and_run_tests
+
+rm -rf  ./a.out
+less out_$function_dir.txt
