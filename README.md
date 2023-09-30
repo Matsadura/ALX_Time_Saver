@@ -43,13 +43,15 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 __Added__
 ```
 * ALX Time Saver v2.10 (01-10-2023)
-* Create directory and it's partent directories if not found when using mkfiles
-* The header file is guarded when required
-* Structures are added to the header file when required
+* fixall : Fixes all whitespace and indetation
+* Test suite : Test multiple cases efficiently and rapidly.
+* Libraries are added the the header file
+* The header file is included in all the files
 ```
 __Changed__
 ```
 * Append to VIMRC instead of overwrite it
+* push : The ability to move left and right in the commit message
 ```
 
 __Fixed__
@@ -202,6 +204,7 @@ Points to Remember:
    - To update the test cases, reset the test suite, maintaining the same order of arguments to ensure the corresponding tests are updated.
    - The main function should always be the first argument in the `testall` command; otherwise, it won't function correctly.
    - The additional fucntion files are required during compilation.
+   - You can have multiple test suites.
 
 ![test suite demo](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/ba21a3d7-77b2-41bf-aa76-206acc67e066)
 
