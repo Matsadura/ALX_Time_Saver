@@ -2,7 +2,7 @@
 ![ALX Time Saver LOGO](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/bb8d7635-0959-4c11-bcf4-53c3d978da28)
 
 
-# Welcome to "ALX Time Saver" 🚀
+# Welcome to "ALX Time Saver" ⏰
 
 Tired of those endless "git add," "git commit," and "git push" commands? Frustrated with typing out lengthy compilation strings? Say goodbye to the tedium and whitespace woes with ALX Time Saver!
 
