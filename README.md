@@ -20,6 +20,7 @@ Fork the project, make changes with proper documentation, ensure they work, and 
    - [Simplified Pushing](#push-command)
    - [Effortless Compilation](#compile-command)
    - [Convenient Script Creation](#mkscript-command)
+   - [Convenient indentation and white space removal](#fixall-command)
 
 2. **Custom Vim Configuration:**
    - [Line Numbers on the Left](#vim-configs)
@@ -36,11 +37,12 @@ Fork the project, make changes with proper documentation, ensure they work, and 
    - Generates project files with ease.
    - Retrieves test files (x-main.c).
    - Downloads _putchar.c and updates header file with its prototype.
-
+5. [Test Suite](#test-suite)
+   - Develop a test suite capable of efficiently examining multiple test cases with simplicity and speed.
 ## Changelogs
 __Added__
 ```
-* ALX Time Saver v2.02 (23-09-2023)
+* ALX Time Saver v2.10 (01-10-2023)
 * Create directory and it's partent directories if not found when using mkfiles
 * The header file is guarded when required
 * Structures are added to the header file when required
@@ -139,6 +141,16 @@ Run the `mkscript` command, type your script's name, and it will automatically o
 | mkscript -b file_name        | One-line command for Bash script         |
 | mkscript file_name -b        | One-line command for Bash script         |
 
+### fixall command
+Run `fixall` command followed the the specified directory(s), it'll automatically fix the indentation and remove all white spaces from the `.c` and `.h` files.
+
+![fixall demo](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/886ed4c8-7a1b-4e20-8acc-9ba47fadd82f)
+
+| Syntax                       | Description                              |
+| ------------------------------|------------------------------------------|
+| fixall                     | Automatically selects the current directory  |
+| fixall dir1 dir2 ...            | Selects the specified directories    |
+
 ### Vim Configs
 
 ![vim config](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/b438e9c2-2d0b-4e76-9a42-48f0bb11b40f)
@@ -183,4 +195,21 @@ Demonstration:
 
 ![mkfiles](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/5b9be194-cf14-45a7-9cb8-8fce28696aac)
 
+### Test Suite
+Execute the `setall` command in the sequence of the main function file, followed by the header file and the test cases. Afterward, use the `testall` command, specifying the main function files and the additional function files to initiate the test suite.
+Points to Remember:
+   - It's unnecessary to employ the `setall` command again when reusing the test suite.
+   - To update the test cases, reset the test suite, maintaining the same order of arguments to ensure the corresponding tests are updated.
+   - The main function should always be the first argument in the `testall` command; otherwise, it won't function correctly.
+   - The additional fucntion files are required during compilation.
+
+![test suite demo](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/ba21a3d7-77b2-41bf-aa76-206acc67e066)
+
+| Syntax                       | Description                              |
+| ------------------------------|------------------------------------------|
+| setall main_function.c header.h test1.c testX.c ...  | Sets the test suite for the `main_function.c`  |
+| testall main_function.c secondary_function.c more_functions.c ...  | Runs the test suite for the `main_function.c` |
+
 Enjoy coding efficiently with ALX Time Saver! 🕒💻
+
+This project is made with love, special thanks to all the contributors.
