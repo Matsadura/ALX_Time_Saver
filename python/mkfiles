@@ -2,6 +2,7 @@
 import os
 import re
 import html
+import stat
 from getpass import getpass
 
 import requests
@@ -83,6 +84,7 @@ for code in test_files:
                 file.write(html.unescape(part))
 
                 created_files.append(output_file)
+
             else:
                 missing_files.append(output_file)
 
@@ -106,6 +108,8 @@ else:
                 with open(output_file, "w") as file:
                     pass
                 created_files.append(output_file)
+                if output_file.endswith(".py"):
+                    os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
                 include_files.append(output_file)
             else:
                 missing_files.append(output_file)
@@ -115,6 +119,7 @@ if created_files:
      print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The files {', '.join(created_files)} have been created in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
 if missing_files:
     print(f"{Fore.RED}Error:{Style.RESET_ALL} The following files already exist: {', '.join(missing_files)}")
+
 
 
 # Header Maker
@@ -151,6 +156,32 @@ else:
         print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The prototypes have been appended to '{output_file}' in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
 
 
+# Readme Maker
+
+project_name_pattern = re.findall(r'<li>Directory: <code>(.*?)</code></li>', html_content)
+if project_name_pattern:
+    project_name = project_name_pattern[0]
+else:
+    exit(1)
+
+with open('README.md', 'w') as file:
+    file.write(f"# {project_name}\n\n")
+    file.write("| File      | Description |\n| ----------- | ----------- |\n")
+    for task in task_files:
+        files = task.split(',')
+        for file_name in files:
+            output_file = file_name.strip()
+            file.write(f"| [{output_file}](./{output_file}) | {output_file} |\n")
+
+# Include header in files
+
 for include_file in include_files:
-    with open(include_file, 'a') as file:
-        file.write(f"#include \"{output_file}\"\n")
+    if include_file.endswith(".c"):
+        with open(include_file, 'a') as file:
+            file.write(f"#include \"{output_file}\"\n")
+    if include_file.endswith(".py"):
+        with open(include_file, 'a') as file:
+            file.write(f"#!/usr/bin/python3\n")
+
+
+

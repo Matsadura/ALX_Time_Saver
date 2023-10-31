@@ -3,14 +3,29 @@ contains_putchar_0=0
 contains_putchar_1=0
 
 if [[ $# -gt 0 ]]; then
-	file_names="$@"
+	file_names=("$@")
 fi
 
-for file_name in $file_names
+output_flag=0
+output_name=""
+
+for ((i=0; i<$#; i++));
 do
-	if grep -q "_putchar" $file_name; then
-		contains_putchar_0=1
-		break
+	if [[ "${file_names[i]}" == "-o" ]]; then
+		output_flag=1
+		output_name="${file_names[i+1]}"
+		break;
+	fi
+done
+
+
+for file_name in "${file_names[@]}"
+do
+	if [[ "$file_name" != "-o" && -f "$file_name" && -r "$file_name" ]]; then
+		if grep -q "_putchar" $file_name; then
+			contains_putchar_0=1
+			break
+		fi
 	fi
 done
 
@@ -23,18 +38,26 @@ if [[ $# -eq 0 ]]; then
 	fi
 fi
 
-if [[ $# -eq 0 ]]; then
-	if [[ $contains_putchar_1 -eq 1 ]]; then
-		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $test_file $func_file -o $(echo "$func_file" | rev | cut -d '.' -f 2- | rev)
-	else
-		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 $test_file $func_file -o $(echo "$func_file" | rev | cut -d '.' -f 2-     | rev)
-	fi
-elif [[ $# -gt 0 ]]; then
-	read -e -p "Output's name?: " output
+if [[ $output_flag -eq 1 ]]; then
 	if [[ $contains_putchar_0 -eq 1 ]]; then
-		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $file_names -o $output
+		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c "${file_names[@]}" -o $output_name
 	else
-		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 $file_names -o $output
+		gcc -Wall -pedantic -Werror -Wextra -std=gnu89 "${file_names[@]}" -o $output_name
+	fi
+else
+	if [[ $# -eq 0 ]]; then
+		if [[ $contains_putchar_1 -eq 1 ]]; then
+			gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c $test_file $func_file -o $(echo "$func_file" | rev | cut -d '.' -f 2- | rev)
+		else
+			gcc -Wall -pedantic -Werror -Wextra -std=gnu89 $test_file $func_file -o $(echo "$func_file" | rev | cut -d '.' -f 2-     | rev)
+		fi
+
+	else
+		read -e -p "Output's name?: " output_name
+		if [[ $contains_putchar_0 -eq 1 ]]; then
+			gcc -Wall -pedantic -Werror -Wextra -std=gnu89 _putchar.c "${file_names[@]}" -o $output_name
+		else
+			gcc -Wall -pedantic -Werror -Wextra -std=gnu89 "${file_names[@]}" -o $output_name
+		fi
 	fi
 fi
-

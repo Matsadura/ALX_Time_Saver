@@ -4,19 +4,32 @@ error="Error:"
 notice="Notice:"
 
 force_flag=""
-if [[ $1 == "-f" ]]; then
-	force_flag="-f"
-	shift
-fi
+commit_msg=""
 
-if [[ "$#" -gt 0 ]];then
-	file_names=("$@")
-else
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		-f)
+			force_flag="-f"
+			shift
+			;;
+		-m)
+			shift
+			commit_msg="$1"
+			shift
+			;;
+		*)
+			file_names+=("$1")
+			shift
+			;;
+	esac
+done
+
+if [[ "${#file_names[@]}" -eq 0 ]]; then
 	read -e -p "File name(s): " -a file_name
-	IFS=' ' read -r -a file_names <<< $file_name
+	IFS=' ' read -r -a file_names <<< "$file_name"
 fi
 
-if [[ ! $force_flag == "-f"  ]]; then
+if [[ ! "$force_flag" == "-f" ]]; then
 	ignored_files=()
 
 	for file_name in "${file_names[@]}"; do
@@ -32,11 +45,12 @@ if [[ ! $force_flag == "-f"  ]]; then
 	fi
 fi
 
-read -e -p "What's your commit? : " commit_msg
-
+if [[ -z "$commit_msg" ]]; then
+	read -e -p "What's your commit? : " commit_msg
+fi
 
 for file_name in "${file_names[@]}"; do
-	if [[ $force_flag == "-f" ]]; then
+	if [[ "$force_flag" == "-f" ]]; then
 		git add -f "$file_name"
 	else
 		git add "$file_name"

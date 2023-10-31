@@ -22,6 +22,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'csexton/trailertrash.vim'
 call plug#end()
 
+" pycodestyle
+map <F1> :!pycodestyle %<CR>
+
 " Map a key to run Betty style checker
 map <F2> :!betty %<CR>
 
@@ -29,8 +32,13 @@ map <F2> :!betty %<CR>
 nnoremap <F4> :TrailerTrim<CR>
 
 " Map F3 to select entire buffer and reformat
-nnoremap <F3> :%norm! ggVG=<CR>
+function! Indent()
+    let save_cursor = getpos(".")
+    execute "normal! ggVG="
+    call setpos('.', save_cursor)
+endfunction
 
+nnoremap <F3> :call Indent()<CR>
 " Compile via vim
 function! Compile()
 	let source_filename = expand('%')
