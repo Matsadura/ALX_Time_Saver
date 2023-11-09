@@ -125,6 +125,7 @@ if missing_files:
 # Header Maker
 
 header_pattern = re.findall(r'<li>The prototypes of all your functions and the prototype of the function <code>_putchar</code> should be included in your header file called <code>(.*?)</code></li>', html_content)
+header_pattern_2 = re.findall(r'<li>The prototypes of all your functions should be included in your header file called <code>(.*?)</code></li>', html_content)
 include_guard_pattern = re.findall(r'<li>All your header files should be include guarded</li>', html_content)
 data_structure_pattern = re.findall(r'<p>Please use this data structure for this project:</p>\n\n<pre><code>(.*?)</code></pre>', html_content, re.DOTALL)
 
@@ -134,11 +135,13 @@ prototypes.append('int _putchar(char c);')
 if len(prototypes) == 0:
     print("{Fore.RED}Error:{Style.RESET_ALL} No prototypes found in this project.")
 else:
-    output_file = "main.h"
+    h_file = "main.h"
     if header_pattern:
-        output_file = header_pattern[0]
-    if os.path.exists(output_file):
-        print(f"{Fore.RED}Error:{Style.RESET_ALL} The file '{output_file}' already exists.")
+        h_file = header_pattern[0]
+    if header_pattern_2:
+        h_file = header_pattern_2[0]
+    if os.path.exists(h_file):
+        print(f"{Fore.RED}Error:{Style.RESET_ALL} The file '{h_file}' already exists.")
     else:
         with open(output_file, "a") as file:
             if include_guard_pattern:
@@ -153,7 +156,7 @@ else:
                 file.write(prototype + "\n")
             if include_guard_pattern:
                 file.write(f"#endif /* {guard_name} */")
-        print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The prototypes have been appended to '{output_file}' in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
+        print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The prototypes have been appended to '{h_file}' in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
 
 
 # Readme Maker
@@ -170,15 +173,15 @@ with open('README.md', 'w') as file:
     for task in task_files:
         files = task.split(',')
         for file_name in files:
-            output_file = file_name.strip()
-            file.write(f"| [{output_file}](./{output_file}) | {output_file} |\n")
+            r_file = file_name.strip()
+            file.write(f"| [{r_file}](./{r_file}) | {r_file} |\n")
 
 # Include header in files
 
 for include_file in include_files:
     if include_file.endswith(".c"):
         with open(include_file, 'a') as file:
-            file.write(f"#include \"{output_file}\"\n")
+            file.write(f"#include \"{h_file}\"\n")
     if include_file.endswith(".py"):
         with open(include_file, 'a') as file:
             file.write(f"#!/usr/bin/python3\n")
