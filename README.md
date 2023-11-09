@@ -42,40 +42,40 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 ## Changelogs
 __Added__
 ```
-* ALX Time Saver v2.10 (01-10-2023)
-* fixall : Fixes all whitespace and indetation
-* Test suite : Test multiple cases efficiently and rapidly.
-* Libraries are added the the header file
-* The header file is included in all the files
+* ALX Time Saver v2.11 (31-10-2023)
+* F1 for pycodestyle in vim
+* mkfiles :
+   1 . support for python files, chmod a+x, shebang included.
+   2 . Integrated README Maker
+* compile :
+   1 . Compile in debugging mode by default
+   2 . -o flag for output
+* push :
+   -m flag for commit message
 ```
 __Changed__
 ```
-* Append to VIMRC instead of overwrite it
-* push : The ability to move left and right in the commit message
+-
 ```
 
 __Fixed__
 ```
-1 . mkfiles :
-   * Header file's name is always "main.h" even for project that require a differnt one
-   * Combines all file names into one for tasks that require multiple files
-   * All prototypes are appended to main.h even if tasks require them to be in a different header file
-2 . compile :
-   * it requires _putchar.c to be present in the current directory even when it's not needed
-
+-
 ```
 
 __Known Issues__
 ```
 1 . push :
    * git check-ignore command might be unstable (need to do more testing to confirm this)
+2. F3 does not fully support python
 ```
 
 __To Do__
 ```
+* Updater script
+* Add autoindent for python
 * Fix known issues
-* One-liner commit flag for "push"
-* One-liner output name flag for "compile"
+* Add support for python test files in mkfiles
 ```
 
 ## Installation in 3 Simple Steps 😃
@@ -116,6 +116,7 @@ Run the `push` command, select the file(s) to push, and add your commit message.
 | push -f                        | Force-add ignored files in interactive mode |
 | push file_name1 file_name_2... | One-line command |
 | push -f file_name1 file_name2... | Force-push one-line command |
+| the above plus '-m' "commit msg  | Add a commit message |
 
 ### Compile Command
 Run the `compile` command, select the test file (if it exists) and the code to compile. Avoid typing all the flags every time!
@@ -126,6 +127,7 @@ Run the `compile` command, select the test file (if it exists) and the code to c
 | ---------------------------|--------------------------------|
 | compile                    | Interactive mode               |
 | compile file_1 file_2...   | One-line command               |
+| the above plus '-o'        | Add the output's name          |
 
 ### mkscript Command
 Run the `mkscript` command, type your script's name, and it will automatically open in Vim with `#!/bin/bash` or `#!/usr/bin/python3` already written at the top. After exiting, the file will have executable permission.
