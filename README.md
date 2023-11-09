@@ -47,6 +47,7 @@ __Added__
 * mkfiles :
    1 . support for python files, chmod a+x, shebang included.
    2 . Integrated README Maker
+   3 . New pattern for header name detection
 * compile :
    1 . Compile in debugging mode by default
    2 . -o flag for output
@@ -60,7 +61,8 @@ __Changed__
 
 __Fixed__
 ```
--
+- mkfiles: 
+   1 . Fixed wrong header name
 ```
 
 __Known Issues__
