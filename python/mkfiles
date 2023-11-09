@@ -145,7 +145,7 @@ else:
     else:
         with open(h_file, "a") as file:
             if include_guard_pattern:
-                guard_name = os.path.splitext(output_file)[0].upper().replace('.', '_')
+                guard_name = os.path.splitext(h_file)[0].upper().replace('.', '_')
                 file.write(f"#ifndef {guard_name}\n#define {guard_name}\n")
                 file.write(f"#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n")
             else:
