@@ -108,7 +108,7 @@ else:
                 with open(output_file, "w") as file:
                     pass
                 created_files.append(output_file)
-                if output_file.endswith(".py"):
+                if output_file.endswith(".py") or output_file.endswith(".sh"):
                     os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
                 include_files.append(output_file)
             else:
@@ -185,6 +185,9 @@ for include_file in include_files:
     if include_file.endswith(".py"):
         with open(include_file, 'a') as file:
             file.write(f"#!/usr/bin/python3\n")
+    if include_file.endswith(".sh"):
+        with open(include_file, 'a') as file:
+            file.write(f"#!/bin/bash\n")
 
 
 
