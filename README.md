@@ -61,7 +61,7 @@ __Changed__
 
 __Fixed__
 ```
-- mkfiles: 
+- mkfiles:
    1 . Fixed wrong header name
 ```
 
@@ -105,9 +105,9 @@ If you want to unistall :
 
 **NOTE:** If you've used the previous version, please restart your system to avoid conflicts with this version.
 
-## Features 
+## Features
 
-### Push Command 
+### Push Command
 Run the `push` command, select the file(s) to push, and add your commit message.
 
 ![push](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1788a9aa-ba23-4858-a14c-23a2c374c477)
@@ -175,6 +175,7 @@ Press F2 in Vim instead of leaving it to run "betty file_name.c" separately.
 
 #### Auto Indent with F3
 Check out this demonstration.
+PS : It does not work on python (yet)
 
 ![Vim Auto Indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/8320f485-856d-4e88-a0dc-c50446d79b9b)
 
