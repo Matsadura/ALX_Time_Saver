@@ -221,3 +221,13 @@ Points to Remember:
 Enjoy coding efficiently with ALX Time Saver! 🕒💻
 
 This project is made with love, special thanks to all the contributors.
+
+
+## More Projects
+[ALX Planning Tracker](https://github.com/Matsadura/ALX_Holberton-Planning-Tracker)
+
+[Monty Language Interpreter](https://github.com/Matsadura/monty)
+
+[Simple Shell](https://github.com/Matsadura/simple_shell)
+
+[Printf Implementation](https://github.com/Matsadura/printf)
