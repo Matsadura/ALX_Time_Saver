@@ -132,20 +132,22 @@ Run the `compile` command, select the test file (if it exists) and the code to c
 | the above plus '-o'        | Add the output's name          |
 
 ### mkscript Command
-Run the `mkscript` command, type your script's name, and it will automatically open in Vim with `#!/bin/bash` or `#!/usr/bin/python3` already written at the top. After exiting, the file will have executable permission.
+Run the `mks` command, type your script's name, and it will automatically open in Vim with `#!/bin/bash` or `#!/usr/bin/python3` already written at the top. After exiting, the file will have executable permission.
 
 ![mkscript](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/ca82fd75-dabc-4590-9e83-0f7d100dc0f5)
 
 | Syntax                       | Description                              |
 | ------------------------------|------------------------------------------|
-| mkscript                     | Interactive mode                         |
-| mkscript file_name            | Semi-interactive mode                    |
-| mkscript -p                  | Semi-interactive mode for Python script  |
-| mkscript -b                  | Semi-interactive mode for Bash script    |
-| mkscript -p file_name        | One-line command for Python script       |
-| mkscript file_name -p        | One-line command for Python script       |
-| mkscript -b file_name        | One-line command for Bash script         |
-| mkscript file_name -b        | One-line command for Bash script         |
+| mks                           | Interactive mode                         |
+| mks file_name            | Semi-interactive mode                    |
+| mks -p                  | Semi-interactive mode for Python script  |
+| mks -b                  | Semi-interactive mode for Bash script    |
+| mks -p file_name        | One-line command for Python script       |
+| mks -b file_name        | One-line command for Bash script         |
+| mks -B file_name        | One-line command for Bash script with env shebang |
+| mks -P file_name        | One-line command for Python script with env shebang |
+
+Run mks --help for more information
 
 ### fixall command
 Run `fixall` command followed the the specified directory(s), it'll automatically fix the indentation and remove all white spaces from the `.c` and `.h` files.
@@ -168,8 +170,11 @@ To compile the current file by pressing F5, the file must be in this format: "nu
 
 ![VIM F5 Showcase](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/46ecc108-9288-4f7f-a5b2-b5302f251348)
 
-#### Betty with F2
-Press F2 in Vim instead of leaving it to run "betty file_name.c" separately.
+#### Code check with F1
+Press F1 to check your code based on its type
+* `.c or .h` files will be checked by Betty
+* `.py or a file with #!/usr/bin/python3` will be check by pycodestyle
+* `.sh or a file with #!/bin/bash` will be checked with Shellcheck
 
 ![Betty](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/ccb022bf-b0fa-4089-bfdb-2fa061632744)
 

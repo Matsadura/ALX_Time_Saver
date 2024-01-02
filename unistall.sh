@@ -15,3 +15,6 @@ for exe in "${exes[@]}"; do
 		sudo rm /usr/bin/$exe
 	fi
 done
+
+# Remove the auto suggestion file
+sudo rm /etc/bash_completion.d/_mkscript

@@ -1,0 +1,24 @@
+#################################################################
+# ALX TIME SAVER
+################
+
+# _mks Bash completion script
+
+_mkscript() {
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  opts="-b -p -B -P --help --version"
+
+  case "${prev}" in
+    mkscript)
+      COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+      return 0
+      ;;
+    *)
+      ;;
+  esac
+}
+
+complete -F _mkscript mkscript
