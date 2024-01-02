@@ -42,40 +42,42 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 ## Changelogs
 __Added__
 ```
-* ALX Time Saver v2.10 (01-10-2023)
-* fixall : Fixes all whitespace and indetation
-* Test suite : Test multiple cases efficiently and rapidly.
-* Libraries are added the the header file
-* The header file is included in all the files
+* ALX Time Saver v2.11 (31-10-2023)
+* F1 for pycodestyle in vim
+* mkfiles :
+   1 . support for python files, chmod a+x, shebang included.
+   2 . Integrated README Maker
+   3 . New pattern for header name detection
+* compile :
+   1 . Compile in debugging mode by default
+   2 . -o flag for output
+* push :
+   -m flag for commit message
 ```
 __Changed__
 ```
-* Append to VIMRC instead of overwrite it
-* push : The ability to move left and right in the commit message
+-
 ```
 
 __Fixed__
 ```
-1 . mkfiles :
-   * Header file's name is always "main.h" even for project that require a differnt one
-   * Combines all file names into one for tasks that require multiple files
-   * All prototypes are appended to main.h even if tasks require them to be in a different header file
-2 . compile :
-   * it requires _putchar.c to be present in the current directory even when it's not needed
-
+- mkfiles:
+   1 . Fixed wrong header name
 ```
 
 __Known Issues__
 ```
 1 . push :
    * git check-ignore command might be unstable (need to do more testing to confirm this)
+2. F3 does not fully support python
 ```
 
 __To Do__
 ```
+* Updater script
+* Add autoindent for python
 * Fix known issues
-* One-liner commit flag for "push"
-* One-liner output name flag for "compile"
+* Add support for python test files in mkfiles
 ```
 
 ## Installation in 3 Simple Steps 😃
@@ -103,9 +105,9 @@ If you want to unistall :
 
 **NOTE:** If you've used the previous version, please restart your system to avoid conflicts with this version.
 
-## Features 
+## Features
 
-### Push Command 
+### Push Command
 Run the `push` command, select the file(s) to push, and add your commit message.
 
 ![push](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/1788a9aa-ba23-4858-a14c-23a2c374c477)
@@ -116,6 +118,7 @@ Run the `push` command, select the file(s) to push, and add your commit message.
 | push -f                        | Force-add ignored files in interactive mode |
 | push file_name1 file_name_2... | One-line command |
 | push -f file_name1 file_name2... | Force-push one-line command |
+| the above plus '-m' "commit msg  | Add a commit message |
 
 ### Compile Command
 Run the `compile` command, select the test file (if it exists) and the code to compile. Avoid typing all the flags every time!
@@ -126,6 +129,7 @@ Run the `compile` command, select the test file (if it exists) and the code to c
 | ---------------------------|--------------------------------|
 | compile                    | Interactive mode               |
 | compile file_1 file_2...   | One-line command               |
+| the above plus '-o'        | Add the output's name          |
 
 ### mkscript Command
 Run the `mkscript` command, type your script's name, and it will automatically open in Vim with `#!/bin/bash` or `#!/usr/bin/python3` already written at the top. After exiting, the file will have executable permission.
@@ -171,6 +175,7 @@ Press F2 in Vim instead of leaving it to run "betty file_name.c" separately.
 
 #### Auto Indent with F3
 Check out this demonstration.
+PS : It does not work on python (yet)
 
 ![Vim Auto Indent](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/8320f485-856d-4e88-a0dc-c50446d79b9b)
 
@@ -216,3 +221,13 @@ Points to Remember:
 Enjoy coding efficiently with ALX Time Saver! 🕒💻
 
 This project is made with love, special thanks to all the contributors.
+
+
+## More Projects
+[ALX Planning Tracker](https://github.com/Matsadura/ALX_Holberton-Planning-Tracker)
+
+[Monty Language Interpreter](https://github.com/Matsadura/monty)
+
+[Simple Shell](https://github.com/Matsadura/simple_shell)
+
+[Printf Implementation](https://github.com/Matsadura/printf)
