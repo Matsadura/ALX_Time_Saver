@@ -22,11 +22,18 @@ call plug#begin('~/.vim/plugged')
 Plug 'csexton/trailertrash.vim'
 call plug#end()
 
-" pycodestyle
-map <F1> :!pycodestyle %<CR>
-
-" Map a key to run Betty style checker
-map <F2> :!betty %<CR>
+" Map F2 to auto check code betty style or pycodestyle or shellcheck
+function! CheckCode()
+    let filetype = &filetype
+    if filetype ==# 'c' || filetype ==# 'h'
+        execute '!betty %'
+    elseif filetype ==# 'python'
+        execute '!pycodestyle %'
+    elseif filetype ==# 'sh'
+        execute '!shellcheck %'
+    endif
+endfunction
+nnoremap <F2> :call CheckCode()<CR>
 
 " Map a key to run TrailerTrash
 nnoremap <F4> :TrailerTrim<CR>

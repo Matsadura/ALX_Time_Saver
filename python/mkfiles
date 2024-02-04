@@ -2,192 +2,455 @@
 import os
 import re
 import html
-import stat
-from getpass import getpass
+import json
+from getpass import getpass, getuser
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as BS
 from colorama import Fore, Style
 from prompt_toolkit import prompt
 from prompt_toolkit.document import Document
 from prompt_toolkit.completion import Completer, Completion, PathCompleter
 
+
+# Global variables
+readme_files = []
+include_files = []
+
+# Logs variables
+C_0 = Style.RESET_ALL
+C_Red = Fore.RED
+C_Green = Fore.GREEN
+C_Cyan = Fore.CYAN
+C_Yellow = Fore.YELLOW
+OK = f"[ {C_Green}OK      {C_0}] |"
+ERROR = f"[ {C_Red}Error   {C_0}] |"
+PROMPT = f"[ Prompt  ] |"
+MESSAGE = f"[ {C_Yellow}Message {C_0}] |"
+
+
 # Custom Tilde Expantion
 class TildeExpandingPathCompleter(Completer):
+    """
+        A custom class to support ~ during prompting
+    """
     def get_completions(self, document, complete_event):
         expanded_text = os.path.expanduser(document.text_before_cursor)
         for completion in PathCompleter().get_completions(Document(expanded_text, len(expanded_text)), complete_event):
             yield Completion(completion.text, start_position=document.cursor_position - len(document.text_before_cursor))
 
+def get_login_info():
+    """
+        A function that reads, writes the credentials and logs into the intranet
 
-# Login info
-email = prompt('Enter your intranet email: ')
-password = getpass('Enter your password: ')
+        Returns:
+            session: The current active session
+    """
+    user = getuser()
+    yes = ["yes", "y", "YES", "Y"]
 
-session = requests.Session()
+    if os.path.exists(f"/home/{user}/.AlxTsaverRc"):
+        with open(f"/home/{user}/.AlxTsaverRc", 'r') as file:
+            credentials = json.load(file)
+        session = login(credentials['email'], credentials['password'])
+        return session
+    else:
+        input_email = prompt(f"{PROMPT} Enter your intranet email: ")
+        input_password = getpass(f"{PROMPT} Enter your intranet password: ")
+        session = login(input_email, input_password) 
+        flag = prompt(f"{PROMPT} Remember me ? [Y/n]: ")
+        if flag in yes:
+            with open(f"/home/{user}/.AlxTsaverRc", "w") as init:
+                init.write('{\n\t"email": "",\n\t"password": ""\n}')
 
+            with open(f"/home/{user}/.AlxTsaverRc", "r") as load_init:
+                new_credentials = json.load(load_init)
 
-login_page_response = session.get('https://intranet.alxswe.com/auth/sign_in')
+            new_credentials['email'] = input_email
+            new_credentials['password'] = input_password
 
-# HTML content and authenticity_token
-soup = BeautifulSoup(login_page_response.text, 'html.parser')
-authenticity_token = soup.find('input', attrs={'name': 'authenticity_token'})['value']
-
-login_data = {
-    'user[email]': email,
-    'user[password]': password,
-    'authenticity_token': authenticity_token
-}
-
-login_url = 'https://intranet.alxswe.com/auth/sign_in'
-
-response = session.post(login_url, data=login_data)
-
-number = input('Please enter the project number: ')
-url = f'https://intranet.alxswe.com/projects/{number}'
-response = session.get(url)
-
-
-# Check if login was successful
-if "Tables" in response.text:
-    print(f"{Fore.GREEN}Login successful, Do Hard Things !")
-    html_content = response.text
-else:
-    print(f"{Fore.RED}Login failed, make sure your credentials and the project number are correct.")
-    exit(1)
-
-
-directory = prompt('Please provide the save directory: ', completer=TildeExpandingPathCompleter())
-directory = os.path.expanduser(directory)
-os.makedirs(directory,exist_ok=True)
-os.chdir(directory)
+            with open(f"/home/{user}/.AlxTsaverRc", "w") as edit_init:
+                json.dump(new_credentials, edit_init, indent=2)
+        else:
+            print(f'{MESSAGE} Not saving credientials.')
+            pass
+        return session
 
 
-# Test Files Maker
+def go_to_dir():
+    """
+        A function to select where to save the files
+    """
+    directory_path = prompt(f'{PROMPT} Please provide the save directory: ', completer=TildeExpandingPathCompleter())
+    directory = os.path.expanduser(directory_path)
+    os.makedirs(directory,exist_ok=True)
+    os.chdir(directory)
 
-test_files = re.findall(r'<pre><code>(.*?)</code></pre>', html_content, re.DOTALL)
-created_files = []
-missing_files = []
-include_files = []
-for code in test_files:
-        include_bracket = re.findall(r'(#include.*})', code, re.DOTALL | re.MULTILINE)
-        main_name = re.search(r'(\d+)-main\.c', code)
-        if main_name:
-            main_name = main_name.group(1) + "-main.c"
+# Login function
+def login(email, password):
+    """
+        A function that logs into the ALX Intranet
+
+        Args:
+            email: Intranet email
+            password: Intranet password
+        
+        Returns:
+            session: The current active session
+    """
+    session = requests.Session()
+    login_page_response = session.get('https://intranet.alxswe.com/auth/sign_in')
+    soup = BS(login_page_response.text, 'html.parser')
+    authenticity_token = soup.find('input', attrs={'name': 'authenticity_token'})['value']
+    login_data = {
+        'user[email]': email,
+        'user[password]': password,
+        'authenticity_token': authenticity_token
+    }
+    login_url = 'https://intranet.alxswe.com/auth/sign_in'
+    print(f'{MESSAGE} Login in...')
+    response = session.post(login_url, data=login_data)
+    if "Tables" in response.text:
+        profile_page = session.get('https://intranet.alxswe.com/users/my_profile')
+        profile_soup = BS(profile_page.text, 'html.parser')
+        first_name = profile_soup.find('input', attrs={'id': 'user_first_name'})['value']
+        last_name = profile_soup.find('input', attrs={'id': 'user_last_name'})['value']
+        print(f"{OK} {C_Green}Login successful, Do Hard Things {first_name} {last_name} !{C_0}")
+    else:
+        print(f"{ERROR} Invalid email or password.{C_0}")
+        exit(1)
+    return session
+
+# Get project's data
+def get_project(session, project_id):
+    """
+        A function that extract the project's data
+
+        Args:
+            session: The current active session
+            project_id : The id associated with the project
+        
+        Returns:
+            project_name.text: The name of the selected project
+            project_html: The project's page html code
+    """
+    project_url = f'https://intranet.alxswe.com/projects/{project_id}'
+    project_response = session.get(project_url)
+    project_html = project_response.text
+    if project_response.status_code== 200:
+        soup = BS(project_response.text, 'html.parser')
+        project_name = soup.find('h1', {'class': 'gap'})
+    elif project_response.status_code == 302:
+        print(f"{ERROR} The project you requested is not available to you yet!")
+    elif project_response.status_code == 404:
+        print(f'{ERROR} clue #1 for level "Are you clueless?" is "alx"')
+    try:
+        return project_name.text, project_html
+    except AttributeError:
+        pass
+
+# Get current projects
+def get_list_projects(session, flag=None):
+    """
+        A function that extracts the ids, names and scores of projects
+
+        Args:
+            session: The current active session
+            flag: if 'all' it extracts all the projects else
+                    it exctracts only the current projects
+    """
+    silence = '<p class="text-center">None, enjoy the silence.</p>'
+    if flag == 'all':
+        print(f'{MESSAGE} Getting list of all projects...\n')
+        black_list = ['Onboarding', 'Onboarding - Getting started', 'Onboarding - Tools', '0-Day', '0-Day - 0-Day', 'Low-level programming & Algorithm',
+                      'System engineering & DevOps', 'Technical Writing and Networking', 'Technical Writing and Networking - Social media','More!',
+                      'Higher-level programming']
+    else:
+        print(f'{MESSAGE} Getting list of current projects...\n')
+
+    response = session.get('https://intranet.alxswe.com/projects/current')
+    if response.status_code == 200:
+        soup = BS(response.text, 'html.parser')
+        try:
+            if flag == 'all':
+                print('All projects:')
+                for panel in soup.find_all('div', class_='panel-default'):
+                    category_name_tag = panel.find('div', class_='panel-heading').find('h4').find('a')
+                    if category_name_tag:
+                        if category_name_tag.text.strip() in black_list:
+                            continue
+                        print(f'\n{category_name_tag.text.strip()}')
+                        print('\t ID | Progress | Project Name ')
+                    for item in panel.find('div', class_='panel-collapse').find_all('li'):
+                        project_code = item.find('code') 
+                        project_name = item.find('a')
+                        project_progress_tag = item.find('strong')
+                        if project_progress_tag:
+                            project_progress = project_progress_tag.text.strip()
+                        if project_code and project_name and project_progress:
+                            print(f"\t{project_code.text} | [{project_progress}] | {project_name.text}")
+                            # print(f"\t{project_code.text} -> {project_name.text}  [{project_progress}]")
+                print("")
+            else:
+                print('My projects:')
+                print('\t ID |   Progress  | Project Name ')
+                my_projects_header = soup.find('h1', string='My projects')
+                my_projects_ul = my_projects_header.find_next_sibling('ul')
+                for item in my_projects_ul.find_all('li'):
+                    project_code = item.find('code') 
+                    project_name = item.find('a')
+                    project_progress_tag = item.find('div', class_='project_progress_percentage')
+                    if project_progress_tag:
+                        project_progress = project_progress_tag.text.strip()
+                    if project_code and project_name and project_progress:
+                        print(f"\t{project_code.text} | [{project_progress}] | {project_name.text}")
+                print("")
+        except AttributeError:
+            print(f"{ERROR} Couldn't get the list of projects")       
+    else:
+        print(f"{ERROR} Couldn't get the list of projects")
+
+def add_putchar(project_data, flag, prototype_list=None):
+    """
+        A function that handles _putchar if needed
+
+        Args:
+            project_data: The selected project's HTML code
+            flag: File if the function is used to create _putchar.c
+                  prototype if it's used to include the prototype in
+                  the header file
+        Returns:
+            True: if _putchar.c has been created
+    """
+    find_putchar = re.findall(r'General</h(.*?)>Copyright', project_data, re.DOTALL | re.MULTILINE)
+    if find_putchar:
+        for match in find_putchar:
+            putchar = re.search(r"putchar", match)
+    if putchar:
+        if flag == 'prototype':
+            prototype_list.append('int _putchar(char c);')
+        elif flag == 'file':
+            putchar = 'https://raw.githubusercontent.com/alx-tools/_putchar.c/master/_putchar.c'
+            putchar_r = requests.get(putchar, allow_redirects=True)
+            with open('_putchar.c', 'wb') as file:
+                file.write(putchar_r.content)
+            return True
+# Header file
+def get_header_file(project_data):
+    """
+        A function that extracts and creates the header file
+
+        Args:
+            project_data: The HTML code of the selected project
+    """
+    header_pattern = re.findall(r'<li>The prototypes of all your functions and the prototype of the function <code>_putchar</code> should be included in your header file called <code>(.*?)</code></li>', project_data)
+    header_pattern_2 = re.findall(r'<li>The prototypes of all your functions should be included in your header file called <code>(.*?)</code></li>', project_data)
+    include_guard_pattern = re.findall(r'<li>All your header files should be include guarded</li>', project_data)
+    data_structure_pattern = re.findall(r'<p>Please use this data structure for this project:</p>\n\n<pre><code>(.*?)</code></pre>', project_data, re.DOTALL)
+    data_structure_pattern_2 = re.findall(r'<p>Please use these data structures for this project:</p>\n\n<pre><code>(.*?)</code></pre>', project_data, re.DOTALL)
+    prototypes = re.findall(r'Prototype: <code>(.*?)</code>', project_data)
+    add_putchar(project_data, 'prototype', prototypes)
+
+    print(f"{MESSAGE} Extracting the header file...")
+
+    if len(prototypes) == 0:
+        print(f"{ERROR} No prototypes found in this project.")
+    else:
+        h_file = "main.h"
+        if header_pattern:
+            h_file = header_pattern[0]
+        if header_pattern_2:
+            h_file = header_pattern_2[0]
+        if os.path.exists(h_file):
+            print(f"{ERROR} The file '{h_file}' already exists.")
+        else:
+            with open(h_file, "a") as file:
+                if include_guard_pattern:
+                    guard_name = os.path.splitext(h_file)[0].upper().replace('.', '_')
+                    file.write(f"#ifndef {guard_name}\n#define {guard_name}\n\n")
+                    file.write(f"#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n\n")
+                else:
+                    file.write(f"#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n\n")
+                if data_structure_pattern:
+                    file.write(data_structure_pattern[0] + "\n\n")
+                elif data_structure_pattern_2:
+                    file.write(data_structure_pattern_2[0] + "\n\n")
+                for prototype in prototypes:
+                    if prototype.startswith('def'):
+                        continue
+                    file.write(prototype + "\n")
+                if include_guard_pattern:
+                    file.write(f"\n#endif /* {guard_name} */")
+                print(f"{OK} Extracted '{h_file}'")
+                return h_file
+
+def get_project_files(project_data):
+    """
+        A function that creates the task files
+
+        Args:
+            project_data: The project's HTML code
+    """
+    created_files = []
+    missing_files = []
+    print(f"{MESSAGE} Extracting project files...")
+    task_files = re.findall(r'File: <code>(.*?)</code>', project_data)
+
+    putchar = add_putchar(project_data, 'file')
+    if putchar:
+        created_files.append('_putchar.c')
+
+    if len(task_files) == 0:
+        print(f"{ERROR} No files were found in this project.")
+    else:
+        for task in task_files:
+            files = task.split(',')
+            for file_name in files:
+                output_file = file_name.strip()
+                readme_files.append(output_file)
+                if not os.path.exists(output_file):
+                    with open(output_file, "w") as file:
+                        pass
+                    created_files.append(output_file)
+                    if output_file.endswith((".py", ".sh", ".bash", ".rb")):
+                        os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
+                    include_files.append(output_file)
+                else:
+                    missing_files.append(output_file)
+    if created_files:
+        print(f"{OK} The files {', '.join(created_files)} have been created.")
+    if missing_files:
+        print(f"{ERROR} The following files already exist: {', '.join(missing_files)}")
+
+def include_headerShebang(h_file=None):
+    """
+        A function that include the header file in C file
+        or adds a Shebang in Python files
+    """
+    print(f"{MESSAGE} Including header file or adding shebang...")
+    for include_file in include_files:
+        if include_file.endswith(".c"):
+            with open(include_file, 'a') as file:
+                file.write(f"#include \"{h_file}\"\n")
+        if include_file.endswith(".py"):
+            with open(include_file, 'a') as file:
+                file.write(f"#!/usr/bin/python3\n")
+
+def get_main_files(project_data):
+    """
+        A function that extracts and creates the main test files
+
+        Args:
+            project_data: The project's HTML code
+    """
+    print(f'{MESSAGE} Extracting main test files...')
+    created_files = []
+    missing_files = []
+    test_files = re.findall(r'<pre><code>(.*?)</code></pre>', project_data, re.DOTALL)
+    for code in test_files:
+        main_file_name_py = re.search(r'(\d+)-main\.py', code)
+        main_file_name_c = re.search(r'(\d+)-main\.c', code)
+        if main_file_name_py:
+            main_file_new_name = main_file_name_py.group(1) + "-main.py"
+        elif main_file_name_c:
+            main_file_new_name = main_file_name_c.group(1) + "-main.c"
         else:
             continue
+        prompt = re.findall(rf'(.*?)@ubuntu', code)
+        test_cases = re.findall(rf'cat {main_file_new_name}(.*?){prompt[0]}', code, re.DOTALL | re.MULTILINE)
 
-        for part in include_bracket:
-            output_file = main_name
-            if not os.path.exists(output_file):
-             with open(output_file, "w") as file:
-                file.write(html.unescape(part))
-
-                created_files.append(output_file)
-
-            else:
-                missing_files.append(output_file)
-
-
-# Files Maker
-
-putchar = 'https://raw.githubusercontent.com/alx-tools/_putchar.c/master/_putchar.c'
-putchar_r = requests.get(putchar, allow_redirects=True)
-with open('_putchar.c', 'wb') as file:
-    file.write(putchar_r.content)
-
-task_files = re.findall(r'File: <code>(.*?)</code>', html_content)
-if len(task_files) == 0:
-    print(f"{Fore.RED}Error:{Style.RESET_ALL} No files were found in this project.")
-else:
-    for task in task_files:
-        files = task.split(',')
-        for file_name in files:
-            output_file = file_name.strip()
+        for part in test_cases:
+            output_file = main_file_new_name
             if not os.path.exists(output_file):
                 with open(output_file, "w") as file:
-                    pass
+                    file.write(html.unescape(part))
+                with open(output_file, 'r') as file:
+                    lines = file.readlines()
+                if lines:
+                    lines[0] = lines[0].rstrip()
+                with open(output_file, 'w') as file:
+                    file.writelines(lines)
                 created_files.append(output_file)
-                if output_file.endswith(".py") or output_file.endswith(".sh"):
+                if output_file.endswith((".py", ".sh", ".bash", ".rb")):
                     os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
-                include_files.append(output_file)
             else:
                 missing_files.append(output_file)
+    if created_files:
+        print(f"{OK} The test files '{', '.join(created_files)}' have been created.")
+    if missing_files:
+        print(f"{ERROR} The following test files already exist: '{', '.join(missing_files)}'")
 
+def write_readme(project_name):
+    """
+        A function that create the layout of the README
 
-if created_files:
-     print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The files {', '.join(created_files)} have been created in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
-if missing_files:
-    print(f"{Fore.RED}Error:{Style.RESET_ALL} The following files already exist: {', '.join(missing_files)}")
+        Args:
+            project_name: The name of the selected project
+    """
+    with open('README.md', 'w') as file:
+        file.write(f"# {project_name.strip()}\n\n")
+        file.write("| File      | Description |\n| ----------- | ----------- |\n")
+        for task in readme_files:
+            files = task.split(',')
+            for file_name in files:
+                r_file = file_name.strip()
+                file.write(f"| [{r_file}](./{r_file}) | {r_file} |\n")
 
+def create_readme(project_name):
+    """
+        A function that handle README edge cases
 
-
-# Header Maker
-
-header_pattern = re.findall(r'<li>The prototypes of all your functions and the prototype of the function <code>_putchar</code> should be included in your header file called <code>(.*?)</code></li>', html_content)
-header_pattern_2 = re.findall(r'<li>The prototypes of all your functions should be included in your header file called <code>(.*?)</code></li>', html_content)
-include_guard_pattern = re.findall(r'<li>All your header files should be include guarded</li>', html_content)
-data_structure_pattern = re.findall(r'<p>Please use this data structure for this project:</p>\n\n<pre><code>(.*?)</code></pre>', html_content, re.DOTALL)
-
-prototypes = re.findall(r'Prototype: <code>(.*?)</code>', html_content)
-prototypes.append('int _putchar(char c);')
-
-if len(prototypes) == 0:
-    print("{Fore.RED}Error:{Style.RESET_ALL} No prototypes found in this project.")
-else:
-    h_file = "main.h"
-    if header_pattern:
-        h_file = header_pattern[0]
-    if header_pattern_2:
-        h_file = header_pattern_2[0]
-    if os.path.exists(h_file):
-        print(f"{Fore.RED}Error:{Style.RESET_ALL} The file '{h_file}' already exists.")
+        Args:
+            project_name: The name of the selected project
+    """
+    yes = ["YES", "Y"]
+    no = ["NO", "N"]
+    print(f"{MESSAGE} Creating README.md...")
+    if os.path.exists("README.md"):
+        print(f"{PROMPT} README already exists, overwrite? [Y/n]: ", end="")
+        answer = prompt()
+        if answer.lower() in [element.lower() for element in yes]:
+            print(f"{OK} Overwriting README...")
+            write_readme(project_name)
+        elif answer.lower() in [element.lower() for element in no]:
+            print(f"{MESSAGE} Not overwriting README.")
+        else:
+            print(f"{ERROR} Wrong input.")
+            pass
     else:
-        with open(h_file, "a") as file:
-            if include_guard_pattern:
-                guard_name = os.path.splitext(h_file)[0].upper().replace('.', '_')
-                file.write(f"#ifndef {guard_name}\n#define {guard_name}\n")
-                file.write(f"#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n")
-            else:
-                file.write(f"#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n")
-            if data_structure_pattern:
-                file.write(data_structure_pattern[0] + "\n")
-            for prototype in prototypes:
-                file.write(prototype + "\n")
-            if include_guard_pattern:
-                file.write(f"#endif /* {guard_name} */")
-        print(f"{Fore.GREEN}Success:{Style.RESET_ALL} The prototypes have been appended to '{h_file}' in the directory {Fore.LIGHTCYAN_EX}'{os.getcwd()}'")
+        write_readme(project_name)
 
 
-# Readme Maker
+# Main function
+def main():
+    try:
+        session = get_login_info()
+        list_choice = prompt(f"{PROMPT} Get list of current projects or all projects ? [C/a]: ")
+        current = ["C", "CURRENT"]
+        all_projects = ["A", "ALL"]
+        if list_choice.lower() in [element.lower() for element in current]:
+            get_list_projects(session)
+        elif list_choice.lower() in [element.lower() for element in all_projects]:
+            get_list_projects(session, "all")
+        else:
+            print(f"{ERROR} | Wrong input.")
+            pass
+        project_id = prompt(f"{PROMPT} Enter project ID: ")
+        project_name, project_data = get_project(session, project_id)
+        if project_name:
+            print(f'{OK} Selected project : {C_Cyan} {project_name}{C_0}')
+        go_to_dir()
+        if project_data:
+            h_file = get_header_file(project_data)
+            get_project_files(project_data)
+            get_main_files(project_data)
+            if project_name:
+                create_readme(project_name)
+        include_headerShebang(h_file)
+    except KeyboardInterrupt:
+        print(f"{MESSAGE} Exiting...")
+        exit(1)
+    
 
-project_name_pattern = re.findall(r'<li>Directory: <code>(.*?)</code></li>', html_content)
-if project_name_pattern:
-    project_name = project_name_pattern[0]
-else:
-    exit(1)
-
-with open('README.md', 'w') as file:
-    file.write(f"# {project_name}\n\n")
-    file.write("| File      | Description |\n| ----------- | ----------- |\n")
-    for task in task_files:
-        files = task.split(',')
-        for file_name in files:
-            r_file = file_name.strip()
-            file.write(f"| [{r_file}](./{r_file}) | {r_file} |\n")
-
-# Include header in files
-
-for include_file in include_files:
-    if include_file.endswith(".c"):
-        with open(include_file, 'a') as file:
-            file.write(f"#include \"{h_file}\"\n")
-    if include_file.endswith(".py"):
-        with open(include_file, 'a') as file:
-            file.write(f"#!/usr/bin/python3\n")
-    if include_file.endswith(".sh"):
-        with open(include_file, 'a') as file:
-            file.write(f"#!/bin/bash\n")
-
-
-
+if __name__ == "__main__":
+    main()

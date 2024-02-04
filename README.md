@@ -43,7 +43,7 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 __Added__
 ```
 * ALX Time Saver v2.14 (04-02-2024)
-* F2 for betty, pycodestyle and spellcheck in vim
+* F2 for betty, pycodestyle and shellcheck in vim
 * mkfiles :
    1 . Support for python files
    2 . Get list of current project
@@ -163,8 +163,8 @@ To compile the current file by pressing F5, the file must be in this format: "nu
 
 ![VIM F5 Showcase](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/46ecc108-9288-4f7f-a5b2-b5302f251348)
 
-#### Betty, Pycodestyle, Spellcheck with F2
-Press F2 in Vim instead of leaving it to run "betty or pycodestyle or spellcheck file_name.c" separately.
+#### Betty, Pycodestyle, Sherlcheck with F2
+Press F2 in Vim instead of leaving it to run "betty or pycodestyle or shellcheck file_name.c" separately.
 
 ![Betty](https://github.com/Matsadura/ALX_Time_Saver/assets/132571698/ccb022bf-b0fa-4089-bfdb-2fa061632744)
 
