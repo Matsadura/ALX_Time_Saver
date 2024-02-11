@@ -42,23 +42,19 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 ## Changelogs
 __Added__
 ```
-* ALX Time Saver v2.14 (04-02-2024)
-* F2 for betty, pycodestyle and shellcheck in vim
-* mkfiles :
-   1 . Support for python files
-   2 . Get list of current project
-   3 . Get list of all projects
+* ALX Time Saver v2.15 (11-02-2024)
 
 ```
 __Changed__
 ```
-* mkfiles :
-   1 . Code restructure
+-
 ```
 
 __Fixed__
 ```
--
+* mkfiles :
+  1 . Fix "tests/" creation
+
 ```
 
 __Known Issues__
