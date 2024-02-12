@@ -39,6 +39,7 @@ class TildeExpandingPathCompleter(Completer):
         for completion in PathCompleter().get_completions(Document(expanded_text, len(expanded_text)), complete_event):
             yield Completion(completion.text, start_position=document.cursor_position - len(document.text_before_cursor))
 
+
 def get_login_info():
     """
         A function that reads, writes the credentials and logs into the intranet
@@ -57,7 +58,7 @@ def get_login_info():
     else:
         input_email = prompt(f"{PROMPT} Enter your intranet email: ")
         input_password = getpass(f"{PROMPT} Enter your intranet password: ")
-        session = login(input_email, input_password) 
+        session = login(input_email, input_password)
         flag = prompt(f"{PROMPT} Remember me ? [Y/n]: ")
         if flag in yes:
             with open(f"/home/{user}/.AlxTsaverRc", "w") as init:
@@ -83,10 +84,10 @@ def go_to_dir():
     """
     directory_path = prompt(f'{PROMPT} Please provide the save directory: ', completer=TildeExpandingPathCompleter())
     directory = os.path.expanduser(directory_path)
-    os.makedirs(directory,exist_ok=True)
+    os.makedirs(directory, exist_ok=True)
     os.chdir(directory)
 
-# Login function
+
 def login(email, password):
     """
         A function that logs into the ALX Intranet
@@ -94,7 +95,7 @@ def login(email, password):
         Args:
             email: Intranet email
             password: Intranet password
-        
+
         Returns:
             session: The current active session
     """
@@ -121,6 +122,7 @@ def login(email, password):
         exit(1)
     return session
 
+
 # Get project's data
 def get_project(session, project_id):
     """
@@ -129,7 +131,7 @@ def get_project(session, project_id):
         Args:
             session: The current active session
             project_id : The id associated with the project
-        
+
         Returns:
             project_name.text: The name of the selected project
             project_html: The project's page html code
@@ -137,7 +139,7 @@ def get_project(session, project_id):
     project_url = f'https://intranet.alxswe.com/projects/{project_id}'
     project_response = session.get(project_url)
     project_html = project_response.text
-    if project_response.status_code== 200:
+    if project_response.status_code == 200:
         soup = BS(project_response.text, 'html.parser')
         project_name = soup.find('h1', {'class': 'gap'})
     elif project_response.status_code == 302:
@@ -149,7 +151,29 @@ def get_project(session, project_id):
     except AttributeError:
         pass
 
-# Get current projects
+
+def get_Learning_Objectives(project_data):
+    """
+    """
+    obj = re.findall(r'<h3>General</h3>(.*?)<h3>Copyright - Plagiarism</h3>', project_data, re.DOTALL | re.MULTILINE)
+    if obj[0]:
+        for element in ['\n', '<ul>', '</ul>', '<li>']:
+            obj[0] = obj[0].replace(element, "")
+        obj[0] = obj[0].replace('<code>', C_Red)
+        obj[0] = obj[0].replace('</code>', C_0)
+        obj[0] = obj[0].split("</li>")
+        i = 1
+        print(f"{C_Yellow}Learning Objectives:{C_0}")
+        for objective in obj[0]:
+            if len(objective) != 0:
+                if i <= 9:
+                    print(f'\t{i}.  {objective} .')
+                else:
+                    print(f'\t{i}. {objective} .')
+                i += 1
+        print("")
+
+
 def get_list_projects(session, flag=None):
     """
         A function that extracts the ids, names and scores of projects
@@ -163,7 +187,7 @@ def get_list_projects(session, flag=None):
     if flag == 'all':
         print(f'{MESSAGE} Getting list of all projects...\n')
         black_list = ['Onboarding', 'Onboarding - Getting started', 'Onboarding - Tools', '0-Day', '0-Day - 0-Day', 'Low-level programming & Algorithm',
-                      'System engineering & DevOps', 'Technical Writing and Networking', 'Technical Writing and Networking - Social media','More!',
+                      'System engineering & DevOps', 'Technical Writing and Networking', 'Technical Writing and Networking - Social media', 'More!',
                       'Higher-level programming']
     else:
         print(f'{MESSAGE} Getting list of current projects...\n')
@@ -182,7 +206,7 @@ def get_list_projects(session, flag=None):
                         print(f'\n{category_name_tag.text.strip()}')
                         print('\t ID | Progress | Project Name ')
                     for item in panel.find('div', class_='panel-collapse').find_all('li'):
-                        project_code = item.find('code') 
+                        project_code = item.find('code')
                         project_name = item.find('a')
                         project_progress_tag = item.find('strong')
                         if project_progress_tag:
@@ -197,7 +221,7 @@ def get_list_projects(session, flag=None):
                 my_projects_header = soup.find('h1', string='My projects')
                 my_projects_ul = my_projects_header.find_next_sibling('ul')
                 for item in my_projects_ul.find_all('li'):
-                    project_code = item.find('code') 
+                    project_code = item.find('code')
                     project_name = item.find('a')
                     project_progress_tag = item.find('div', class_='project_progress_percentage')
                     if project_progress_tag:
@@ -206,9 +230,10 @@ def get_list_projects(session, flag=None):
                         print(f"\t{project_code.text} | [{project_progress}] | {project_name.text}")
                 print("")
         except AttributeError:
-            print(f"{ERROR} Couldn't get the list of projects")       
+            print(f"{ERROR} Couldn't get the list of projects")
     else:
         print(f"{ERROR} Couldn't get the list of projects")
+
 
 def add_putchar(project_data, flag, prototype_list=None):
     """
@@ -235,7 +260,8 @@ def add_putchar(project_data, flag, prototype_list=None):
             with open('_putchar.c', 'wb') as file:
                 file.write(putchar_r.content)
             return True
-# Header file
+
+
 def get_header_file(project_data):
     """
         A function that extracts and creates the header file
@@ -284,6 +310,7 @@ def get_header_file(project_data):
                 print(f"{OK} Extracted '{h_file}'")
                 return h_file
 
+
 def get_project_files(project_data):
     """
         A function that creates the task files
@@ -324,6 +351,7 @@ def get_project_files(project_data):
     if missing_files:
         print(f"{ERROR} The following files already exist: {', '.join(missing_files)}")
 
+
 def include_headerShebang(h_file=None):
     """
         A function that include the header file in C file
@@ -337,6 +365,7 @@ def include_headerShebang(h_file=None):
         if include_file.endswith(".py"):
             with open(include_file, 'a') as file:
                 file.write(f"#!/usr/bin/python3\n")
+
 
 def get_main_files(project_data):
     """
@@ -382,6 +411,7 @@ def get_main_files(project_data):
     if missing_files:
         print(f"{ERROR} The following test files already exist: '{', '.join(missing_files)}'")
 
+
 def write_readme(project_name):
     """
         A function that create the layout of the README
@@ -397,6 +427,7 @@ def write_readme(project_name):
             for file_name in files:
                 r_file = file_name.strip()
                 file.write(f"| [{r_file}](./{r_file}) | {r_file} |\n")
+
 
 def create_readme(project_name):
     """
@@ -435,12 +466,14 @@ def main():
         elif list_choice.lower() in [element.lower() for element in all_projects]:
             get_list_projects(session, "all")
         else:
-            print(f"{ERROR} | Wrong input.")
+            print(f"{ERROR} Wrong input.")
             pass
         project_id = prompt(f"{PROMPT} Enter project ID: ")
         project_name, project_data = get_project(session, project_id)
         if project_name:
             print(f'{OK} Selected project : {C_Cyan} {project_name}{C_0}')
+            if project_data:
+                get_Learning_Objectives(project_data)
         go_to_dir()
         if project_data:
             h_file = get_header_file(project_data)
@@ -452,7 +485,7 @@ def main():
     except KeyboardInterrupt:
         print(f"{MESSAGE} Exiting...")
         exit(1)
-    
+
 
 if __name__ == "__main__":
     main()

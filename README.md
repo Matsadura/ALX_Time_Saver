@@ -42,7 +42,9 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 ## Changelogs
 __Added__
 ```
-* ALX Time Saver v2.15 (11-02-2024)
+* ALX Time Saver v2.16 (12-02-2024)
+* mkfiles :
+  1 . Display seleted project's learning objectives
 
 ```
 __Changed__
@@ -52,9 +54,7 @@ __Changed__
 
 __Fixed__
 ```
-* mkfiles :
-  1 . Fix "tests/" creation
-
+-
 ```
 
 __Known Issues__
