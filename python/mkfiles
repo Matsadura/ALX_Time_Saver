@@ -341,7 +341,7 @@ def get_project_files(project_data):
                     with open(output_file, "w") as file:
                         pass
                     created_files.append(output_file)
-                    if output_file.endswith((".py", ".sh", ".bash", ".rb")):
+                    if output_file.endswith((".py", ".sh", ".bash", ".rb", ".js")):
                         os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
                     include_files.append(output_file)
                 else:
@@ -365,7 +365,9 @@ def include_headerShebang(h_file=None):
         if include_file.endswith(".py"):
             with open(include_file, 'a') as file:
                 file.write(f"#!/usr/bin/python3\n")
-
+        if include_file.endswith(".js"):
+            with open(include_file, 'a') as file:
+                file.write(f"#!/usr/bin/node\n")
 
 def get_main_files(project_data):
     """
@@ -381,10 +383,13 @@ def get_main_files(project_data):
     for code in test_files:
         main_file_name_py = re.search(r'(\d+)-main\.py', code)
         main_file_name_c = re.search(r'(\d+)-main\.c', code)
+        main_file_name_js = re.search(r'(\d+)-main\.js', code)
         if main_file_name_py:
             main_file_new_name = main_file_name_py.group(1) + "-main.py"
         elif main_file_name_c:
             main_file_new_name = main_file_name_c.group(1) + "-main.c"
+        elif main_file_name_js:
+            main_file_new_name = main_file_name_js.group(1) + "-main.js"
         else:
             continue
         prompt = re.findall(rf'(.*?)@ubuntu', code)
@@ -402,7 +407,7 @@ def get_main_files(project_data):
                 with open(output_file, 'w') as file:
                     file.writelines(lines)
                 created_files.append(output_file)
-                if output_file.endswith((".py", ".sh", ".bash", ".rb")):
+                if output_file.endswith((".py", ".sh", ".bash", ".rb", ".js")):
                     os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
             else:
                 missing_files.append(output_file)
