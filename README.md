@@ -213,6 +213,9 @@ Enjoy coding efficiently with ALX Time Saver! 🕒💻
 
 This project is made with love, special thanks to all the contributors.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Matsadura/ALX_Time_Saver&type=Date)](https://star-history.com/#Matsadura/ALX_Time_Saver&Date)
 
 ## More Projects
 [ALX Planning Tracker](https://github.com/Matsadura/ALX_Holberton-Planning-Tracker)
