@@ -40,13 +40,13 @@ Fork the project, make changes with proper documentation, ensure they work, and 
 5. [Test Suite](#test-suite)
    - Develop a test suite capable of efficiently examining multiple test cases with simplicity and speed.
 ## Changelogs
+
+* ALX Time Saver v2.18 (23-02-2024)
 __Added__
 ```
-* ALX Time Saver v2.17 (12-02-2024)
-* mkfiles :
-  1 . Add support for JavaScript projects
-
+-
 ```
+
 __Changed__
 ```
 -
@@ -54,7 +54,8 @@ __Changed__
 
 __Fixed__
 ```
--
+* mkfiles:
+    1. models/ & tests/ folder not being created
 ```
 
 __Known Issues__
