@@ -340,8 +340,9 @@ def get_project_files(project_data):
                         os.makedirs("tests/", exist_ok=True)
                     if "models/" in output_file or output_file == "models/":
                         os.makedirs("models/", exist_ok=True)
-                    with open(output_file, "w") as file:
-                        pass
+                    if output_file != "tests/" and output_file != "models/":
+                        with open(output_file, "w") as file:
+                            pass
                     created_files.append(output_file)
                     if output_file.endswith((".py", ".sh", ".bash", ".rb")):
                         os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
@@ -460,7 +461,7 @@ def create_readme(project_name):
 def main():
     try:
         session = get_login_info()
-        list_choice = prompt(f"{PROMPT} Get list of current projects or all projects ? [C/a]: ")
+        list_choice = prompt(f"{PROMPT} Get list of current projects or all projects ? [C/a](Or any key to skip): ")
         current = ["C", "CURRENT"]
         all_projects = ["A", "ALL"]
         if list_choice.lower() in [element.lower() for element in current]:
@@ -468,7 +469,7 @@ def main():
         elif list_choice.lower() in [element.lower() for element in all_projects]:
             get_list_projects(session, "all")
         else:
-            print(f"{ERROR} Wrong input.")
+            print(f"{MESSAGE} Skipping this step...")
             pass
         project_id = prompt(f"{PROMPT} Enter project ID: ")
         project_name, project_data = get_project(session, project_id)
