@@ -274,6 +274,7 @@ def get_header_file(project_data):
     include_guard_pattern = re.findall(r'<li>All your header files should be include guarded</li>', project_data)
     data_structure_pattern = re.findall(r'<p>Please use this data structure for this project:</p>\n\n<pre><code>(.*?)</code></pre>', project_data, re.DOTALL)
     data_structure_pattern_2 = re.findall(r'<p>Please use these data structures for this project:</p>\n\n<pre><code>(.*?)</code></pre>', project_data, re.DOTALL)
+    data_structure_pattern_3 = re.findall(r'<li>Please use the following data structure for doubly linked list:</li>\n</ul>\n\n<pre><code>(.*?)</code></pre>', project_data, re.DOTALL)
     prototypes = re.findall(r'Prototype: <code>(.*?)</code>', project_data)
     add_putchar(project_data, 'prototype', prototypes)
 
@@ -301,6 +302,8 @@ def get_header_file(project_data):
                     file.write(data_structure_pattern[0] + "\n\n")
                 elif data_structure_pattern_2:
                     file.write(data_structure_pattern_2[0] + "\n\n")
+                elif data_structure_pattern_3:
+                    file.write(data_structure_pattern_3[0] + "\n\n")
                 for prototype in prototypes:
                     if prototype.startswith('def'):
                         continue
@@ -340,10 +343,11 @@ def get_project_files(project_data):
                         os.makedirs("tests/", exist_ok=True)
                     if "models/" in output_file or output_file == "models/":
                         os.makedirs("models/", exist_ok=True)
-                    with open(output_file, "w") as file:
-                        pass
+                    if output_file != "tests/" and output_file != "models/":
+                        with open(output_file, "w") as file:
+                            pass
                     created_files.append(output_file)
-                    if output_file.endswith((".py", ".sh", ".bash", ".rb")):
+                    if output_file.endswith((".py", ".sh", ".bash", ".rb", ".js")):
                         os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
                     include_files.append(output_file)
                 else:
@@ -367,6 +371,9 @@ def include_headerShebang(h_file=None):
         if include_file.endswith(".py"):
             with open(include_file, 'a') as file:
                 file.write(f"#!/usr/bin/python3\n")
+        if include_file.endswith(".js"):
+            with open(include_file, 'a') as file:
+                file.write(f"#!/usr/bin/node\n")
 
 
 def get_main_files(project_data):
@@ -383,14 +390,21 @@ def get_main_files(project_data):
     for code in test_files:
         main_file_name_py = re.search(r'(\d+)-main\.py', code)
         main_file_name_c = re.search(r'(\d+)-main\.c', code)
+        main_file_name_js = re.search(r'(\d+)-main\.js', code)
         if main_file_name_py:
             main_file_new_name = main_file_name_py.group(1) + "-main.py"
         elif main_file_name_c:
             main_file_new_name = main_file_name_c.group(1) + "-main.c"
+        elif main_file_name_js:
+            main_file_new_name = main_file_name_js.group(1) + "-main.js"
         else:
             continue
-        prompt = re.findall(rf'(.*?)@ubuntu', code)
-        test_cases = re.findall(rf'cat {main_file_new_name}(.*?){prompt[0]}', code, re.DOTALL | re.MULTILINE)
+        prompt_1 = re.findall(rf'(.*?)@ubuntu', code)
+        prompt_2 = re.findall(rf'(.*?)@/tmp/sort', code)
+        if prompt_1:
+            test_cases = re.findall(rf'cat {main_file_new_name}(.*?){prompt_1[0]}', code, re.DOTALL | re.MULTILINE)
+        elif prompt_2:
+            test_cases = re.findall(rf'cat {main_file_new_name}(.*?){prompt_2[0]}', code, re.DOTALL | re.MULTILINE)
 
         for part in test_cases:
             output_file = main_file_new_name
@@ -404,7 +418,7 @@ def get_main_files(project_data):
                 with open(output_file, 'w') as file:
                     file.writelines(lines)
                 created_files.append(output_file)
-                if output_file.endswith((".py", ".sh", ".bash", ".rb")):
+                if output_file.endswith((".py", ".sh", ".bash", ".rb", ".js")):
                     os.chmod(output_file, 0o777 | os.stat(output_file).st_mode)
             else:
                 missing_files.append(output_file)
@@ -460,7 +474,7 @@ def create_readme(project_name):
 def main():
     try:
         session = get_login_info()
-        list_choice = prompt(f"{PROMPT} Get list of current projects or all projects ? [C/a]: ")
+        list_choice = prompt(f"{PROMPT} Get list of current projects or all projects ? [C/a](Or any key to skip): ")
         current = ["C", "CURRENT"]
         all_projects = ["A", "ALL"]
         if list_choice.lower() in [element.lower() for element in current]:
@@ -468,7 +482,7 @@ def main():
         elif list_choice.lower() in [element.lower() for element in all_projects]:
             get_list_projects(session, "all")
         else:
-            print(f"{ERROR} Wrong input.")
+            print(f"{MESSAGE} Skipping this step...")
             pass
         project_id = prompt(f"{PROMPT} Enter project ID: ")
         project_name, project_data = get_project(session, project_id)
