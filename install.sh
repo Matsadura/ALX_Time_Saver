@@ -25,7 +25,8 @@ call plug#end()
 " Map F2 to auto check code betty style or pycodestyle or shellcheck
 function! CheckCode()
     let filetype = &filetype
-    if filetype ==# 'c' || filetype ==# 'h'
+    let filename = expand('%:t')
+    if filetype ==# 'c' || filename =~# '\.h$'
         execute '!betty %'
     elseif filetype ==# 'python'
         execute '!pycodestyle %'
