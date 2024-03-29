@@ -156,6 +156,9 @@ def get_Learning_Objectives(project_data):
     """
     """
     obj = re.findall(r'<h3>General</h3>(.*?)<h3>Copyright - Plagiarism</h3>', project_data, re.DOTALL | re.MULTILINE)
+    """ handles if there are not learning objectives for fix my code projects"""
+    if not obj:
+        return
     if obj[0]:
         for element in ['\n', '<ul>', '</ul>', '<li>']:
             obj[0] = obj[0].replace(element, "")
